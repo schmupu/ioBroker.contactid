@@ -1,1 +1,100 @@
+![Logo](contactidext.png)
+
 # ioBroker.contactid
+==================
+
+The protocol Contact ID used by alarm systems to communicate with central stations.
+
+This adapter is a contactid for the creation of an ioBroker adapter. You do not need it at least that you plan developing your own adapter.
+When an alarm event is triggered, the alarm system sends over IP the Contact ID message to the central station.
+You can use ioBroker with this adapter as central station. For example. you can send for a alarm by Conntact ID  a telegram message.  
+
+The Contact-ID message
+
+  SSSS 18QEEEGGZZZC
+
+  * SSSS – Subscriber. These four digits identify the specific alarm system or customer to the central station. ioBroker allows longer subscriber names.
+
+  * 18 - Message Type. Basically this field should always be “18”.
+  * Q – Event Qualifier.
+  * EEE – Event Code.
+  * GG – Group/Partition Number.
+  * ZZZ – Zone Number (001 - 999). This is the number of the zone that triggered the alarm.
+  * C – Checksum.
+
+[Contact ID protocol](http://www.technoimport.com.co/Producto/pdfs/ADEMCO%20-%20DC05_Contact_ID.pdf)
+
+
+## Install & Configuration
+
+1. Install the adapter
+2. Configuration of the adapter:
+
+  Choose the IP-address and port for listening for Conctact-ID requests.
+  Register you subcriber name to identify you burglar alarm messages and
+  select your burglar alarm type.
+
+3. Configure your burglar system to send Contact ID messages
+
+    Lupusec XT1:
+
+      Einstellungen -> Contact ID : rptn://subcriber@ip-address-iobroker:port
+      Example: rptn://test@192.168.20.1:50000
+
+    Lupusec XT1:
+
+      Einstellungen -> Contact ID : ip://subcriber@ip-address-iobroker:port/CID
+      Example: ip://test@192.168.20.1:50000/CID
+
+
+4. Testing the Adpater
+
+  Open command shell and type  
+
+  ```
+  telnet ip-address-iobroker port
+  Example: telnet 192.168.20.1 50000
+
+  ```
+
+  Now you can sen a Conntact ID Message. For Lupsec burglar alarm systems the
+  message begins and ends with [ and ]. Type in your telnet session:
+
+  ```
+  [SSSS 18QEEEGGZZZC]
+  Example: [test 18160201010B]
+  ```
+
+  Now you can see the message in the ioBroker objects
+
+
+## Changelog
+
+### 0.0.2 (2018.05.12)
+* (Stübi) fix errors
+
+### 0.0.1 (2018.05.10)
+* (Stübi) initial release
+
+## License
+The MIT License (MIT)
+
+Copyright (c) 2018 Thorsten <thorsten@stueben.de>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
