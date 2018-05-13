@@ -1,11 +1,15 @@
 {
   "common": {
     "name": "contactid",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "news": {
+      "0.0.3": {
+        "en": "Bug Fixes",
+        "de": "Bug Fixes"
+      },
       "0.0.2": {
-        "en": "initial adapter",
-        "de": "Initiale Version"
+        "en": "Bug Fixes",
+        "de": "Bug Fixes"
       },
       "0.0.1": {
         "en": "initial adapter",

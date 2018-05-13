@@ -102,12 +102,14 @@ adapter.on('message', function(obj) {
 // start here!
 adapter.on('ready', function() {
 
+  adapter.log.info(adapter.namespace);
   main();
 
 });
 
 function main() {
 
+  deleteObects();
   // Objekte anlegen
   createObjects();
 
@@ -127,6 +129,102 @@ function getSubscriberID(subscriber) {
 
 }
 
+
+function deleteChannel(obj) {
+
+  //adapter.log.info('deleteChannel: ' + JSON.stringify(obj));
+
+  Object.keys(obj).forEach(key => {
+
+    if (obj[key] && typeof obj[key] === 'object') {
+
+      deleteChannel(obj[key]); // recurse.
+
+    } else {
+
+      if (obj[key] == 'channel') {
+
+        var found = false;
+        var channelname = obj.common.name;
+
+        // Channel Name ist ein subscriber
+        for (var i = 0; i < adapter.config.keys.length; i++) {
+
+          var key = adapter.config.keys[i];
+          var id = getSubscriberID(key.subscriber);
+
+          if (id == channelname) {
+
+            found = true;
+
+          }
+
+        }
+
+        if (!found) {
+
+          adapter.deleteChannel(channelname);
+
+        }
+
+      }
+
+    }
+
+  });
+
+}
+
+
+function deleteObects() {
+
+  adapter.getAdapterObjects(function(obj) {
+
+    deleteChannel(obj);
+
+  });
+
+}
+
+function createObject(id, key) {
+
+  var states = ["subscriber", "event", "eventtext", "group", "qualifier", "sensor", "message"];
+
+  adapter.getObject(id, function(err, obj) {
+
+    if (err || !obj) {
+
+      adapter.setObject(id, {
+        type: 'channel',
+        common: {
+          name: key.subscriber
+        },
+        native: {}
+      });
+
+
+      for (var j = 0; j < states.length; j++) {
+
+        adapter.setObject(id + '.' + states[j], {
+          type: 'state',
+          common: {
+            name: states[j],
+            type: "string",
+            role: "",
+            read: true,
+            write: false
+          },
+          native: {}
+        });
+
+      }
+
+    }
+
+  });
+
+}
+
 // Objecte anlegen
 function createObjects() {
 
@@ -137,37 +235,7 @@ function createObjects() {
     var key = adapter.config.keys[i];
     var id = getSubscriberID(key.subscriber);
 
-    adapter.getObject(id, function(err, obj) {
-
-      if (err || !obj) {
-
-        adapter.setObject(id, {
-          type: 'channel',
-          common: {
-            name: key.subscriber
-          },
-          native: {}
-        });
-
-        for (var j = 0; j < states.length; j++) {
-
-          adapter.setObject(id + '.' + states[j], {
-            type: 'state',
-            common: {
-              name: states[j],
-              type: "string",
-              role: "",
-              read: true,
-              write: false
-            },
-            native: {}
-          });
-
-        }
-
-      }
-
-    });
+    createObject(id, key);
 
   }
 
@@ -191,6 +259,8 @@ function getAlarmSystem(subscriber) {
   return null;
 
 }
+
+
 
 
 function setStates(cid) {
