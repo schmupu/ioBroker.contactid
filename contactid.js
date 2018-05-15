@@ -157,11 +157,11 @@ function createObject(id, key) {
 
   var states = ["subscriber", "event", "eventtext", "group", "qualifier", "sensor", "message"];
 
-  adapter.getObject(id, function(err, obj) {
+  // adapter.getObject(id, function(err, obj) {
+  //
+  //   if (err || !obj) {
 
-    if (err || !obj) {
-
-      adapter.setObject(id, {
+      adapter.setObjectNotExists(id, {
         type: 'channel',
         common: {
           name: key.subscriber
@@ -172,7 +172,7 @@ function createObject(id, key) {
 
       for (var j = 0; j < states.length; j++) {
 
-        adapter.setObject(id + '.' + states[j], {
+        adapter.setObjectNotExists(id + '.' + states[j], {
           type: 'state',
           common: {
             name: states[j],
@@ -186,9 +186,9 @@ function createObject(id, key) {
 
       }
 
-    }
-
-  });
+  //   }
+  //
+  // });
 
 }
 
