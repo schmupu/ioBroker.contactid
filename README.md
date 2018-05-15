@@ -6,6 +6,7 @@
 [![Build Status](https://travis-ci.org/schmupu/ioBroker.contactid.svg?branch=master)](https://travis-ci.org/schmupu/ioBroker.contactid)
 [![NPM version](http://img.shields.io/npm/v/iobroker.contactid.svg)](https://www.npmjs.com/package/iobroker.contactid)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.contactid.svg)](https://www.npmjs.com/package/iobroker.contactid)
+
 [![NPM](https://nodei.co/npm/iobroker.contactid.png?downloads=true)](https://nodei.co/npm/iobroker.contactid/)
 
 
