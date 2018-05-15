@@ -77,7 +77,10 @@ The Contact-ID message
 
 ## Changelog
 
-### 0.0.2 (2018.05.13)
+### 0.0.4 (2018.05.15)
+* (Stübi) code improvements
+
+### 0.0.3 (2018.05.13)
 * (Stübi) fix errors
 
 ### 0.0.2 (2018.05.12)
