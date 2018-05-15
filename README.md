@@ -3,6 +3,9 @@
 # ioBroker.contactid
 ==================
 
+[![Build Status](https://travis-ci.org/schmupu/ioBroker.contactid.svg?branch=master)](https://travis-ci.org/schmupu/ioBroker.contactid)
+
+
 The protocol Contact ID used by alarm systems to communicate with central stations.
 
 This adapter is a contactid for the creation of an ioBroker adapter. You do not need it at least that you plan developing your own adapter.
