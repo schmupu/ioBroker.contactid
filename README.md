@@ -1,5 +1,5 @@
 ![Logo](contactidext.png)
-test
+
 # ioBroker.contactid
 ==================
 
