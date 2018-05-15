@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "contactid",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "news": {
+      "0.0.5": {
+        "en": "Code improvement",
+        "de": "Anpassungen an der Entwicklung"
+      },
       "0.0.4": {
         "en": "Code improvement",
         "de": "Anpassungen an der Entwicklung"
