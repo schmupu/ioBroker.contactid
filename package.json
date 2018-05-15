@@ -6,10 +6,12 @@
     "name": "Thorsten Stueben",
     "email": "thorsten@stueben.de"
   },
-  "contributors": [{
-    "name": "Thorsten Stueben",
-    "email": "thorsten@stueben.de"
-  }],
+  "contributors": [
+    {
+      "name": "Thorsten Stueben",
+      "email": "thorsten@stueben.de"
+    }
+  ],
   "homepage": "https://github.com/schmupu/ioBroker.contactid",
   "license": "MIT",
   "keywords": [

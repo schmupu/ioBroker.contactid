@@ -42,7 +42,7 @@
     "readme": "https://github.com/schmupu/ioBroker.contactid/blob/master/README.md",
     "loglevel": "info",
     "type": "general",
-    "restartAdapters": ["vis"]
+    "restartAdapters": []
   },
   "native": {
     "port": 50000,
