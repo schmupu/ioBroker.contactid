@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "contactid",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "news": {
+      "0.0.6": {
+        "en": "Bug Fixing",
+        "de": "Fehlerbehebung"
+      },
       "0.0.5": {
         "en": "fixed error in drop down menu",
         "de": "Fehlerbehebung Drop-Down Menue"

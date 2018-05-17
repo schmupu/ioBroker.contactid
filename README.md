@@ -48,7 +48,7 @@ The Contact-ID message
       Einstellungen -> Contact ID : rptn://subcriber@ip-address-iobroker:port
       Example: rptn://test@192.168.20.1:50000
 
-    Lupusec XT1:
+    Lupusec XT2:
 
       Einstellungen -> Contact ID : ip://subcriber@ip-address-iobroker:port/CID
       Example: ip://test@192.168.20.1:50000/CID
@@ -76,6 +76,10 @@ The Contact-ID message
 
 
 ## Changelog
+
+### 0.0.6 (2018.05.18)
+* (Stübi) fixed error i
+* (Stübi) correction of README.md
 
 ### 0.0.5 (2018.05.17)
 * (Stübi) fixed error in drop down menu
