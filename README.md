@@ -77,8 +77,8 @@ The Contact-ID message
 
 ## Changelog
 
-### 0.0.5 (2018.05.15)
-* (Stübi) code improvements
+### 0.0.5 (2018.05.17)
+* (Stübi) fixed error in drop down menu
 
 ### 0.0.4 (2018.05.15)
 * (Stübi) code improvements

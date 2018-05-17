@@ -4,8 +4,8 @@
     "version": "0.0.5",
     "news": {
       "0.0.5": {
-        "en": "Code improvement",
-        "de": "Anpassungen an der Entwicklung"
+        "en": "fixed error in drop down menu",
+        "de": "Fehlerbehebung Drop-Down Menue"
       },
       "0.0.4": {
         "en": "Code improvement",
