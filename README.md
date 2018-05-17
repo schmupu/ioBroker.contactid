@@ -77,7 +77,6 @@ The Contact-ID message
 
 ## Changelog
 
-<<<<<<< HEAD
 =======
 ### 0.0.5 (2018.05.17)
 * (Stübi) fixed error in drop down menu

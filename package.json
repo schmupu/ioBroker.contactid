@@ -1,10 +1,6 @@
 {
   "name": "iobroker.contactid",
-<<<<<<< HEAD
-  "version": "0.0.4",
-=======
   "version": "0.0.5",
->>>>>>> development
   "description": "ioBroker contactid Adapter",
   "author": {
     "name": "Thorsten Stueben",
