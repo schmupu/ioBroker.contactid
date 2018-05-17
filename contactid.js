@@ -1,50 +1,15 @@
-/**
- *
- * contactid adapter
- *
- *
- *  file io-package.json comments:
- *
- *  {
- *      "common": {
- *          "name":         "contactid",                  // name has to be set and has to be equal to adapters folder name and main file name excluding extension
- *          "version":      "0.0.0",                    // use "Semantic Versioning"! see http://semver.org/
- *          "title":        "Node.js contactid Adapter",  // Adapter title shown in User Interfaces
- *          "authors":  [                               // Array of authord
- *              "name <mail@contactid.com>"
- *          ]
- *          "desc":         "contactid adapter",          // Adapter description shown in User Interfaces. Can be a language object {de:"...",ru:"..."} or a string
- *          "platform":     "Javascript/Node.js",       // possible values "javascript", "javascript/Node.js" - more coming
- *          "mode":         "daemon",                   // possible values "daemon", "schedule", "subscribe"
- *          "materialize":  true,                       // support of admin3
- *          "schedule":     "0 0 * * *"                 // cron-style schedule. Only needed if mode=schedule
- *          "loglevel":     "info"                      // Adapters Log Level
- *      },
- *      "native": {                                     // the native object is available via adapter.config in your adapters code - use it for configuration
- *          "test1": true,
- *          "test2": 42,
- *          "mySelect": "auto"
- *      }
- *  }
- *
- */
-
-/* jshint -W097 */ // jshint strict:false
-/*jslint node: true */
 'use strict';
 
-// you have to require the utils module and call adapter function
 var utils = require(__dirname + '/lib/utils'); // Get common adapter utils
 var net = require('net');
-// you have to call the adapter function and pass a options object
-// name has to be set and has to be equal to adapters folder name and main file name excluding extension
-// adapter will be restarted automatically every time as the configuration changed, e.g system.adapter.contactid.0
+
 var adapter = new utils.Adapter('contactid');
+var server = null; // Server instance
 
-// Server instance
-var server = null;
 
+// *****************************************************************************************************
 // is called when adapter shuts down - callback has to be called under any circumstances!
+// *****************************************************************************************************
 adapter.on('unload', function(callback) {
   try {
     adapter.log.info('Closing Contact ID Server');
@@ -59,28 +24,36 @@ adapter.on('unload', function(callback) {
   }
 });
 
+
+// *****************************************************************************************************
 // is called if a subscribed object changes
+// *****************************************************************************************************
 adapter.on('objectChange', function(id, obj) {
+
   // Warning, obj can be null if it was deleted
-  // adapter.log.info('objectChange ' + id + ' ' + JSON.stringify(obj));
-  adapter.log.info('objectChange ' + id);
+  if (obj) {
 
-
-});
-
-// is called if a subscribed state changes
-adapter.on('stateChange', function(id, state) {
-  // Warning, state can be null if it was deleted
-  // adapter.log.info('stateChange ' + id + ' ' + JSON.stringify(state));
-
-  // you can use the ack flag to detect if it is status (true) or command (false)
-  if (state && !state.ack) {
-    // adapter.log.info('ack is not set!');
   }
 
 });
 
+
+// *****************************************************************************************************
+// is called if a subscribed state changes
+// *****************************************************************************************************
+adapter.on('stateChange', function(id, state) {
+
+  // Warning, state can be null if it was deleted
+  if (state && !state.ack) {
+
+  }
+
+});
+
+
+// *****************************************************************************************************
 // Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
+// *****************************************************************************************************
 adapter.on('message', function(obj) {
 
   if (typeof obj === 'object' && obj.message) {
@@ -98,8 +71,11 @@ adapter.on('message', function(obj) {
 
 });
 
+
+// *****************************************************************************************************
 // is called when databases are connected and adapter received configuration.
 // start here!
+// *****************************************************************************************************
 adapter.on('ready', function() {
 
   adapter.log.info(adapter.namespace);
@@ -107,13 +83,19 @@ adapter.on('ready', function() {
 
 });
 
+
+// *****************************************************************************************************
+// Main function
+// *****************************************************************************************************
 function main() {
 
+  // delete not used / missing object in configuration
   deleteObects();
-  // Objekte anlegen
+
+  // add object from configuration.
   createObjects();
 
-  // Start Socket Server
+  // start socket server
   serverStart();
 
   // in this contactid all states changes inside the adapters namespace are subscribed
@@ -121,7 +103,10 @@ function main() {
 
 }
 
-// Leerzeichen aus dem Subbricernamen entfernen.
+
+// *****************************************************************************************************
+// convert subcriber to ID for using as channel name. Special characters and spaces are deleted.
+// *****************************************************************************************************
 function getSubscriberID(subscriber) {
 
   var id = subscriber.replace(/[.\s]+/g, '_');
@@ -130,10 +115,15 @@ function getSubscriberID(subscriber) {
 }
 
 
+// *****************************************************************************************************
+// delete channel and states which are missing in configuration
+// *****************************************************************************************************
 function deleteChannel(obj) {
 
-  //adapter.log.info('deleteChannel: ' + JSON.stringify(obj));
+  // adapter.log.info('deleteChannel: ' + JSON.stringify(obj));
 
+  // search recrusive for channel name. If found and missing in
+  // configuration, delete channel and all states
   Object.keys(obj).forEach(key => {
 
     if (obj[key] && typeof obj[key] === 'object') {
@@ -176,6 +166,10 @@ function deleteChannel(obj) {
 }
 
 
+// *****************************************************************************************************
+// list of all objects (devices, channel, states) for this instance. call function  deleteChannel
+// for deleting old (not used) channels in configuration
+// *****************************************************************************************************
 function deleteObects() {
 
   adapter.getAdapterObjects(function(obj) {
@@ -186,49 +180,45 @@ function deleteObects() {
 
 }
 
+
+// *****************************************************************************************************
+// create for every ID a channel and create a few states
+// *****************************************************************************************************
 function createObject(id, key) {
 
   var states = ["subscriber", "event", "eventtext", "group", "qualifier", "sensor", "message"];
 
-  adapter.getObject(id, function(err, obj) {
-
-    if (err || !obj) {
-
-      adapter.setObject(id, {
-        type: 'channel',
-        common: {
-          name: key.subscriber
-        },
-        native: {}
-      });
-
-
-      for (var j = 0; j < states.length; j++) {
-
-        adapter.setObject(id + '.' + states[j], {
-          type: 'state',
-          common: {
-            name: states[j],
-            type: "string",
-            role: "",
-            read: true,
-            write: false
-          },
-          native: {}
-        });
-
-      }
-
-    }
-
+  adapter.setObjectNotExists(id, {
+    type: 'channel',
+    common: {
+      name: key.subscriber
+    },
+    native: {}
   });
+
+  for (var j = 0; j < states.length; j++) {
+
+    adapter.setObjectNotExists(id + '.' + states[j], {
+      type: 'state',
+      common: {
+        name: states[j],
+        type: "string",
+        role: "",
+        read: true,
+        write: false
+      },
+      native: {}
+    });
+
+  }
 
 }
 
-// Objecte anlegen
-function createObjects() {
 
-  var states = ["subscriber", "event", "eventtext", "group", "qualifier", "sensor", "message"];
+// *****************************************************************************************************
+// read configuration, and create for all subscribers a channel and states
+// *****************************************************************************************************
+function createObjects() {
 
   for (var i = 0; i < adapter.config.keys.length; i++) {
 
@@ -241,7 +231,10 @@ function createObjects() {
 
 }
 
-// type of burglar alarm by subcscribe name
+
+// *****************************************************************************************************
+// read configuration by subscriber and return the alarmsytem
+// *****************************************************************************************************
 function getAlarmSystem(subscriber) {
 
   for (var i = 0; i < adapter.config.keys.length; i++) {
@@ -261,8 +254,9 @@ function getAlarmSystem(subscriber) {
 }
 
 
-
-
+// *****************************************************************************************************
+// Set state for contact id message
+// *****************************************************************************************************
 function setStates(cid) {
 
   var states = ["subscriber", "event", "eventtext", "group", "qualifier", "sensor", "message"];
@@ -297,6 +291,9 @@ function setStates(cid) {
 }
 
 
+// *****************************************************************************************************
+// start socket server for listining for contact IDs
+// *****************************************************************************************************
 function serverStart() {
 
   server = net.createServer(onClientConnected);
@@ -310,6 +307,10 @@ function serverStart() {
 
 }
 
+
+// *****************************************************************************************************
+// alarm system connected and sending contact ID message
+// *****************************************************************************************************
 function onClientConnected(sock) {
 
   var remoteAddress = sock.remoteAddress + ':' + sock.remotePort;
@@ -370,17 +371,20 @@ function onClientConnected(sock) {
   });
 
   sock.on('close', function() {
-    console.log('connection from ' + remoteAddress + ' closed');
+    adapter.log.info('connection from ' + remoteAddress + ' closed');
   });
 
 
   sock.on('error', function(err) {
-    console.log('Connection ' + remoteAddress + ' error: ' + err.message);
+    adapter.log.error('Connection ' + remoteAddress + ' error: ' + err.message);
   });
 
 }
 
 
+// *****************************************************************************************************
+// parse contactid and put into object
+// *****************************************************************************************************
 function parseCid(data) {
 
   var reg = /^\[(.+) 18(.)(.{3})(.{2})(.{3})(.)(.*)\]/gm;
@@ -408,7 +412,9 @@ function parseCid(data) {
 
 }
 
-
+// *****************************************************************************************************
+// Text for Events
+// *****************************************************************************************************
 function getEventText(event) {
 
   var events = {
