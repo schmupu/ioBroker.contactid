@@ -1,6 +1,6 @@
 {
   "name": "iobroker.contactid",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "ioBroker contactid Adapter",
   "author": {
     "name": "Thorsten Stueben",
@@ -18,6 +18,8 @@
     "ioBroker",
     "contactid",
     "Smart Home",
+    "burglar",
+    "alarm",
     "home automation"
   ],
   "repository": {
@@ -35,7 +37,7 @@
     "test": "node node_modules/mocha/bin/mocha --exit"
   },
   "bugs": {
-    "url": "https://github.com/ioBroker/ioBroker.contactid/issues"
+    "url": "https://github.com/schmupu/ioBroker.contactid/issues"
   },
   "readmeFilename": "README.md"
 }

@@ -78,19 +78,22 @@ The Contact-ID message
 ## Changelog
 
 =======
-### 0.0.5 (2018.05.17)
+### 0.1.0 (18.05.2018)
+* (Stübi) First Beta Release
+
+### 0.0.5 (17.05.2018)
 * (Stübi) fixed error in drop down menu
 
-### 0.0.4 (2018.05.15)
+### 0.0.4 (15.05.2018)
 * (Stübi) code improvements
 
-### 0.0.3 (2018.05.13)
+### 0.0.3 (13.05.2018)
 * (Stübi) fix errors
 
-### 0.0.2 (2018.05.12)
+### 0.0.2 (12.05.2018)
 * (Stübi) fix errors
 
-### 0.0.1 (2018.05.10)
+### 0.0.1 (10.05.2018)
 * (Stübi) initial release
 
 ## License

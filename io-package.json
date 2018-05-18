@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "contactid",
-    "version": "0.0.5",
+    "version": "0.1.0",
     "news": {
+      "0.1.0": {
+        "en": "First Beta Version",
+        "de": "First Beta Version"
+      },
       "0.0.5": {
         "en": "fixed error in drop down menu",
         "de": "Fehlerbehebung Drop-Down Menue"
@@ -49,7 +53,7 @@
     "keywords": ["contactid", "lupusec", "burglar", "alarm", "contactid"],
     "readme": "https://github.com/schmupu/ioBroker.contactid/blob/master/README.md",
     "loglevel": "info",
-    "type": "general",
+    "type": "utility",
     "restartAdapters": []
   },
   "native": {
