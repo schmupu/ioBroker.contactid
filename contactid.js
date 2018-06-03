@@ -51,26 +51,6 @@ adapter.on('stateChange', function(id, state) {
 });
 
 
-// *****************************************************************************************************
-// Some message was sent to adapter instance over message box. Used by email, pushover, text2speech, ...
-// *****************************************************************************************************
-adapter.on('message', function(obj) {
-
-  if (typeof obj === 'object' && obj.message) {
-
-    if (obj.command === 'send') {
-      // e.g. send email or pushover or whatever
-      console.log('send command');
-
-      // Send response in callback if required
-      if (obj.callback) adapter.sendTo(obj.from, obj.command, 'Message received', obj.callback);
-
-    }
-
-  }
-
-});
-
 
 // *****************************************************************************************************
 // is called when databases are connected and adapter received configuration.
