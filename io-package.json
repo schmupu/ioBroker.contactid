@@ -1,8 +1,16 @@
 {
   "common": {
     "name": "contactid",
-    "version": "0.0.6",
+    "version": "0.1.1",
     "news": {
+      "0.1.1": {
+        "en": "Lupusec XT1+,XT2+ and XT3 added",
+        "de": "Lpussec XT1+,XT2+ und XT3 Untertützung"
+      },
+      "0.1.0": {
+        "en": "First Beta version",
+        "de": "Erste Beta Version"
+      },
       "0.0.6": {
         "en": "Bug Fixing",
         "de": "Fehlerbehebung"
@@ -14,18 +22,6 @@
       "0.0.4": {
         "en": "Code improvement",
         "de": "Anpassungen an der Entwicklung"
-      },
-      "0.0.3": {
-        "en": "Bug Fixes",
-        "de": "Bug Fixes"
-      },
-      "0.0.2": {
-        "en": "Bug Fixes",
-        "de": "Bug Fixes"
-      },
-      "0.0.1": {
-        "en": "initial adapter",
-        "de": "Initiale Version"
       }
     },
     "title": "Contact ID für Alarmanlagen",
@@ -40,10 +36,6 @@
     "authors": [
       "Thorsten Stueben <thorsten@stueben.de>"
     ],
-    "docs": {
-      "en": "docs/en/admin.md",
-      "de": "docs/de/admin.md"
-    },
     "platform": "Javascript/Node.js",
     "mode": "daemon",
     "icon": "contactid.png",
@@ -53,15 +45,16 @@
     "keywords": ["contactid", "lupusec", "burglar", "alarm", "contactid"],
     "readme": "https://github.com/schmupu/ioBroker.contactid/blob/master/README.md",
     "loglevel": "info",
-    "type": "general",
+    "type": "alarm",
     "restartAdapters": []
   },
   "native": {
     "port": 50000,
     "bind": "0.0.0.0",
-    "keys": [
-            {"subscriber": "test", "alarmsystem": "lupusec_xt2"}
-        ]
+    "keys": [{
+      "subscriber": "test",
+      "alarmsystem": "lupusec_xt2"
+    }]
   },
   "objects": [],
   "instanceObjects": []

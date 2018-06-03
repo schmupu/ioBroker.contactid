@@ -344,12 +344,9 @@ function onClientConnected(sock) {
           sock.end(ack);
           break;
 
+        case "lupusec_xt1p":
         case "lupusec_xt2":
-
-          ack = data;
-          sock.end(ack);
-          break;
-
+        case "lupusec_xt2p":
         case "lupusec_xt3":
 
           ack = data;
