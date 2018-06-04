@@ -77,11 +77,6 @@ The Contact-ID message
 
 ## Changelog
 
-### 0.1.0 (18.05.2018)
-* (Stübi) First Beta Release
-
-### 0.0.5 (17.05.2018)
-=======
 ### 0.1.1 (2018.06.03)
 * (Stübi) Lupusec XT1 Plus, XT2 Plus and XT3 added
 
