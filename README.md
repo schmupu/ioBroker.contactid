@@ -48,7 +48,7 @@ The Contact-ID message
       Einstellungen -> Contact ID : rptn://subcriber@ip-address-iobroker:port
       Example: rptn://test@192.168.20.1:50000
 
-    Lupusec XT1:
+    Lupusec XT1+/XT2/XT2+/XT3:
 
       Einstellungen -> Contact ID : ip://subcriber@ip-address-iobroker:port/CID
       Example: ip://test@192.168.20.1:50000/CID
@@ -77,24 +77,27 @@ The Contact-ID message
 
 ## Changelog
 
-=======
 ### 0.1.0 (18.05.2018)
 * (Stübi) First Beta Release
 
 ### 0.0.5 (17.05.2018)
+=======
+### 0.1.1 (2018.06.03)
+* (Stübi) Lupusec XT1 Plus, XT2 Plus and XT3 added
+
+### 0.1.0 (18.05.2018)
+* (Stübi) First Beta Release
+
+### 0.0.6 (2018.05.18)
+* (Stübi) fixed error i
+* (Stübi) correction of README.md
+
+### 0.0.5 (2018.05.17)
 * (Stübi) fixed error in drop down menu
 
 ### 0.0.4 (15.05.2018)
 * (Stübi) code improvements
 
-### 0.0.3 (13.05.2018)
-* (Stübi) fix errors
-
-### 0.0.2 (12.05.2018)
-* (Stübi) fix errors
-
-### 0.0.1 (10.05.2018)
-* (Stübi) initial release
 
 ## License
 The MIT License (MIT)
