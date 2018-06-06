@@ -51,6 +51,7 @@
   "native": {
     "port": 50000,
     "bind": "0.0.0.0",
+    "alarmtype": "cid",
     "keys": [{
       "subscriber": "test",
       "alarmsystem": "lupusec_xt2"
