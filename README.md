@@ -10,7 +10,7 @@
 [![NPM](https://nodei.co/npm/iobroker.contactid.png?downloads=true)](https://nodei.co/npm/iobroker.contactid/)
 
 
-The protocol Contact ID used by alarm systems to communicate with central stations.
+The protocol Contact ID or SIA used by alarm systems to communicate with central stations.
 
 This adapter is a contactid for the creation of an ioBroker adapter. You do not need it at least that you plan developing your own adapter.
 When an alarm event is triggered, the alarm system sends over IP the Contact ID message to the central station.
@@ -76,6 +76,9 @@ The Contact-ID message
 
 
 ## Changelog
+
+### 0.1.2 (2018.06.07)
+* (Stübi) Protocol SIA supported
 
 ### 0.1.1 (2018.06.03)
 * (Stübi) Lupusec XT1 Plus, XT2 Plus and XT3 added

@@ -3,6 +3,10 @@
     "name": "contactid",
     "version": "0.1.1",
     "news": {
+      "0.1.2": {
+        "en": "SIA protocol supported",
+        "de": "Untertützung des SIA Protokolls"
+      },
       "0.1.1": {
         "en": "Lupusec XT1+,XT2+ and XT3 added",
         "de": "Lpussec XT1+,XT2+ und XT3 Untertützung"
