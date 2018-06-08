@@ -3,7 +3,8 @@
 # ioBroker.contactid
 ==================
 
-[![Build Status](https://travis-ci.org/schmupu/ioBroker.contactid.svg?branch=master)](https://travis-ci.org/schmupu/ioBroker.contactid)
+[![Travis CI Build Status](https://travis-ci.org/schmupu/ioBroker.contactid.svg?branch=master)](https://travis-ci.org/schmupu/ioBroker.contactid)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/schmupu/ioBroker.connectid?branch=master&svg=true)](https://ci.appveyor.com/project/schmupu/ioBroker-connectid/)
 [![NPM version](http://img.shields.io/npm/v/iobroker.contactid.svg)](https://www.npmjs.com/package/iobroker.contactid)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.contactid.svg)](https://www.npmjs.com/package/iobroker.contactid)
 
