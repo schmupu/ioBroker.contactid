@@ -28,14 +28,14 @@
         "de": "Anpassungen an der Entwicklung"
       }
     },
-    "title": "Contact ID für Alarmanlagen",
+    "title": "Contact ID Server für Alarmanlagen",
     "titleLang": {
-      "en": "Contact ID for burglar alarms",
-      "de": "Contact ID für Alarmanlagen"
+      "en": "Contact ID server for burglar alarms",
+      "de": "Contact ID Server für Alarmanlagen"
     },
     "desc": {
-      "en": "ioBroker Contact ID Adapter for burglar alarms",
-      "de": "ioBroker Contact ID Adapter für Alarmanlagen"
+      "en": "ioBroker Contact ID server for burglar alarms",
+      "de": "ioBroker Contact ID Server für Alarmanlagen"
     },
     "authors": [
       "Thorsten Stueben <thorsten@stueben.de>"
