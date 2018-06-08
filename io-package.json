@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "contactid",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "news": {
+      "0.1.2": {
+        "en": "improvements",
+        "de": "Verbesserungen"
+      },
       "0.1.1": {
         "en": "Lupusec XT1+,XT2+ and XT3 added",
         "de": "Lpussec XT1+,XT2+ und XT3 Untertützung"
@@ -24,14 +28,14 @@
         "de": "Anpassungen an der Entwicklung"
       }
     },
-    "title": "Contact ID für Alarmanlagen",
+    "title": "Contact ID Server für Alarmanlagen",
     "titleLang": {
-      "en": "Contact ID for burglar alarms",
-      "de": "Contact ID für Alarmanlagen"
+      "en": "Contact ID server for burglar alarms",
+      "de": "Contact ID Server für Alarmanlagen"
     },
     "desc": {
-      "en": "ioBroker Contact ID Adapter for burglar alarms",
-      "de": "ioBroker Contact ID Adapter für Alarmanlagen"
+      "en": "ioBroker Contact ID server for burglar alarms",
+      "de": "ioBroker Contact ID Server für Alarmanlagen"
     },
     "authors": [
       "Thorsten Stueben <thorsten@stueben.de>"
@@ -41,7 +45,7 @@
     "icon": "contactid.png",
     "materialize": true,
     "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/schmupu/ioBroker.contactid/master/contactidext.png",
+    "extIcon": "https://raw.githubusercontent.com/schmupu/ioBroker.contactid/master/admin/contactid.png",
     "keywords": ["contactid", "lupusec", "burglar", "alarm", "contactid"],
     "readme": "https://github.com/schmupu/ioBroker.contactid/blob/master/README.md",
     "loglevel": "info",
