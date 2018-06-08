@@ -1,7 +1,7 @@
 {
   "name": "iobroker.contactid",
   "version": "0.1.2",
-  "description": "ioBroker contactid and sia Adapter",
+  "description": "ioBroker contactid Adapter",
   "author": {
     "name": "Thorsten Stueben",
     "email": "thorsten@stueben.de"
@@ -17,7 +17,6 @@
   "keywords": [
     "ioBroker",
     "contactid",
-    "sia",
     "Smart Home",
     "burglar",
     "alarm",
