@@ -1,4 +1,4 @@
-![Logo](admin/contactidext.png)
+![Logo](admin/contactid.png)
 
 # ioBroker.contactid
 ==================
