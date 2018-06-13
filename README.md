@@ -77,6 +77,9 @@ The Contact-ID message
 
 ## Changelog
 
+### 0.1.3 (2018.06.07)
+* (Stübi) Cleanup
+
 ### 0.1.2 (2018.06.07)
 * (Stübi) Improvements
 
