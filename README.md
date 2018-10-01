@@ -64,7 +64,7 @@ The Contact-ID message
 
   ```
 
-  Now you can sen a Conntact ID Message. For Lupsec burglar alarm systems the
+  Now you can send a Conntact ID Message. For Lupsec burglar alarm systems the
   message begins and ends with [ and ]. Type in your telnet session:
 
   ```
