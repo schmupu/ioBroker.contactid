@@ -1,8 +1,16 @@
 {
   "common": {
     "name": "contactid",
-    "version": "0.1.2",
+    "version": "0.1.5",
     "news": {
+      "0.1.5": {
+        "en": "Translations",
+        "de": "Übersetzungen"
+      },
+      "0.1.3": {
+        "en": "Cleanup",
+        "de": "Aufräumen"
+      },
       "0.1.2": {
         "en": "improvements",
         "de": "Verbesserungen"
@@ -37,6 +45,7 @@
       "en": "ioBroker Contact ID server for burglar alarms",
       "de": "ioBroker Contact ID Server für Alarmanlagen"
     },
+    "license": "MIT",
     "authors": [
       "Thorsten Stueben <thorsten@stueben.de>"
     ],
