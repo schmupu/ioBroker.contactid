@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "contactid",
-    "version": "0.1.3",
+    "version": "0.1.5",
     "news": {
+      "0.1.5": {
+        "en": "Translations",
+        "de": "Übersetzungen"
+      },
       "0.1.3": {
         "en": "Cleanup",
         "de": "Aufräumen"
