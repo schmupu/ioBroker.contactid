@@ -77,16 +77,12 @@ The Contact-ID message
 
 ## Changelog
 
-<<<<<<< HEAD
-=======
-=======
 ### 0.1.5 (2018.06.07)
 * (Stübi) Translations
 
 ### 0.1.3 (2018.06.07)
 * (Stübi) Cleanup
 
->>>>>>> development
 ### 0.1.2 (2018.06.07)
 * (Stübi) Improvements
 
