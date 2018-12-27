@@ -1,6 +1,6 @@
 {
   "name": "iobroker.contactid",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "ioBroker contactid Adapter",
   "author": {
     "name": "Thorsten Stueben",
@@ -26,7 +26,9 @@
     "type": "git",
     "url": "https://github.com/schmupu/ioBroker.contactid"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@iobroker/adapter-core": "^1.0.1"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "mocha": "^4.1.0",

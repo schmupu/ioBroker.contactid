@@ -77,6 +77,9 @@ The Contact-ID message
 
 ## Changelog
 
+### 0.1.6 (2018.12.27)
+* (Stübi) Update Core Adapter
+
 ### 0.1.5 (2018.06.07)
 * (Stübi) Translations
 

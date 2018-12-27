@@ -1,6 +1,11 @@
+/* jshint -W097 */
+/* jshint -W030 */
+/* jshint strict:true */
+/* jslint node: true */
+/* jslint esversion: 6 */
 'use strict';
 
-var utils = require(__dirname + '/lib/utils'); // Get common adapter utils
+const utils  = require('@iobroker/adapter-core'); 
 var dp = require(__dirname + '/lib/datapoints');
 var net = require('net');
 var adapter = new utils.Adapter('contactid');
@@ -96,10 +101,10 @@ function deleteChannel(obj) {
         // Channel Name ist ein subscriber
         for (var i = 0; i < adapter.config.keys.length; i++) {
 
-          var key = adapter.config.keys[i];
-          var id = getSubscriberID(key.subscriber);
+          var keyc = adapter.config.keys[i];
+          var idc = getSubscriberID(keyc.subscriber);
 
-          if (id == channelname) {
+          if (idc == channelname) {
 
             found = true;
 
@@ -340,7 +345,7 @@ function serverStart() {
 function onClientConnected(sock) {
 
   var remoteAddress = sock.remoteAddress + ':' + sock.remotePort;
-  var strclose = "close"
+  var strclose = "close";
   var len = strclose.length;
   var ack = null;
 
