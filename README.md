@@ -78,7 +78,7 @@ The Contact-ID message
 ## Changelog
 
 ### 1.0.0 (2019.01.05)
-* (Stübi) Support of comapct mode
+* (Stübi) Support js-controller compact mode 
 
 ### 0.1.6 (2018.12.27)
 * (Stübi) Update Core Adapter
