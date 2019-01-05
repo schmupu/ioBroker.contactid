@@ -1,8 +1,12 @@
 {
   "common": {
     "name": "contactid",
-    "version": "0.1.6",
+    "version": "1.0.0",
     "news": {
+      "1.0.0": {
+        "en": "Support of compact mode",
+        "de": "Compact Modus Untertützung"
+      },
       "0.1.6": {
         "en": "Update Core Adapter",
         "de": "Update Core Adapter"
@@ -58,6 +62,7 @@
     "icon": "contactid.png",
     "materialize": true,
     "enabled": true,
+    "compact": true,
     "extIcon": "https://raw.githubusercontent.com/schmupu/ioBroker.contactid/master/admin/contactid.png",
     "keywords": ["contactid", "lupusec", "burglar", "alarm", "contactid"],
     "readme": "https://github.com/schmupu/ioBroker.contactid/blob/master/README.md",

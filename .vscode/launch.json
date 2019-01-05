@@ -13,6 +13,7 @@
             "args": [
                 "--debug",
                 "--force",
+                "--logs",
                 "--trace-warnings"
             ]
         },

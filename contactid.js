@@ -5,45 +5,51 @@
 /* jslint esversion: 6 */
 'use strict';
 
-const utils  = require('@iobroker/adapter-core'); 
-var dp = require(__dirname + '/lib/datapoints');
-var net = require('net');
-var adapter = new utils.Adapter('contactid');
-var server = null; // Server instance
+const utils = require('@iobroker/adapter-core');
+const dp = require(__dirname + '/lib/datapoints');
+const net = require('net');
+let server = null; // Server instance
 
+const adapterName = require('./package.json').name.split('.').pop();
+let adapter;
 
-// *****************************************************************************************************
-// is called when adapter shuts down - callback has to be called under any circumstances!
-// *****************************************************************************************************
-adapter.on('unload', function(callback) {
-  try {
-    adapter.log.info('Closing Contact ID Server');
+function startAdapter(options) {
+  options = options || {};
+  options.name = adapterName;
+  adapter = new utils.Adapter(options);
 
-    if (server) {
-      server.close();
+  // *****************************************************************************************************
+  // is called when adapter shuts down - callback has to be called under any circumstances!
+  // *****************************************************************************************************
+  adapter.on('unload', function (callback) {
+    try {
+      adapter.log.info('Closing Contact ID Server');
+
+      if (server) {
+        server.close();
+      }
+
+      callback();
+    } catch (e) {
+      callback();
     }
 
-    callback();
-  } catch (e) {
-    callback();
-  }
-
-});
-
- 
+  });
 
 
-// *****************************************************************************************************
-// is called when databases are connected and adapter received configuration.
-// start here!
-// *****************************************************************************************************
-adapter.on('ready', function() {
+  // *****************************************************************************************************
+  // is called when databases are connected and adapter received configuration.
+  // start here!
+  // *****************************************************************************************************
+  adapter.on('ready', function () {
 
-  adapter.log.info(adapter.namespace);
-  main();
+    adapter.log.info("Starting : " + adapter.namespace);
+    main();
 
-});
+  });
 
+  return adapter;
+}
 
 // *****************************************************************************************************
 // Main function
@@ -133,7 +139,7 @@ function deleteChannel(obj) {
 // *****************************************************************************************************
 function deleteObjects() {
 
-  adapter.getAdapterObjects(function(obj) {
+  adapter.getAdapterObjects(function (obj) {
 
     deleteChannel(obj);
 
@@ -328,7 +334,7 @@ function serverStart() {
 
   server = net.createServer(onClientConnected);
 
-  server.listen(adapter.config.port, adapter.config.bind, function() {
+  server.listen(adapter.config.port, adapter.config.bind, function () {
 
     var text = 'Contact ID Server listening on IP-Adress: ' + server.address().address + ':' + server.address().port;
     adapter.log.info(text);
@@ -351,7 +357,7 @@ function onClientConnected(sock) {
 
   // adapter.log.info('New client connected: ' + remoteAddress);
 
-  sock.on('data', function(data) {
+  sock.on('data', function (data) {
 
     var strdata = data.toString().trim();
     adapter.log.info(remoteAddress + ' sending following message: ' + strdata);
@@ -376,12 +382,12 @@ function onClientConnected(sock) {
 
   });
 
-  sock.on('close', function() {
+  sock.on('close', function () {
     adapter.log.info('connection from ' + remoteAddress + ' closed');
   });
 
 
-  sock.on('error', function(err) {
+  sock.on('error', function (err) {
     adapter.log.error('Connection ' + remoteAddress + ' error: ' + err.message);
   });
 
@@ -427,4 +433,13 @@ function getEventText(event) {
   var events = dp.events || [];
   return events[event];
 
+}
+
+
+// If started as allInOne mode => return function to create instance
+if (typeof module !== undefined && module.parent) {
+  module.exports = startAdapter;
+} else {
+  // or start the instance directly
+  startAdapter();
 }
