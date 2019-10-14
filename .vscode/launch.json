@@ -15,7 +15,8 @@
                 "--force",
                 "--logs",
                 "--trace-warnings"
-            ]
+            ],
+            "outputCapture": "std"
         },
         {
             "type": "node",
