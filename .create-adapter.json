@@ -1,0 +1,37 @@
+{
+	"cli": true,
+	"adapterName": "speedtest",
+	"title": "Internet Speedtest",
+	"description": "Checks the internet speed",
+	"keywords": [
+		"speed internet"
+	],
+	"expert": "no",
+	"features": [
+		"adapter"
+	],
+	"adminFeatures": [],
+	"type": "network",
+	"startMode": "daemon",
+	"connectionType": "cloud",
+	"dataSource": "poll",
+	"connectionIndicator": "no",
+	"language": "JavaScript",
+	"adminReact": "no",
+	"tools": [
+		"ESLint",
+		"type checking"
+	],
+	"indentation": "Tab",
+	"quotes": "single",
+	"es6class": "yes",
+	"authorName": "Thorsten Stueben",
+	"authorGithub": "schmupu",
+	"authorEmail": "thorsten@stueben.de",
+	"gitRemoteProtocol": "HTTPS",
+	"gitCommit": "no",
+	"license": "MIT License",
+	"ci": "gh-actions",
+	"dependabot": "no",
+	"creatorVersion": "1.30.1"
+}

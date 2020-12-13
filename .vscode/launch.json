@@ -11,11 +11,9 @@
             "program": "${workspaceFolder}/contactid.js",
             "cwd": "${workspaceRoot}",
             "args": [
-                "--debug",
-                "--force",
-                "--logs",
-                "--trace-warnings"
+                "--debug", "--force", "--logs", "--trace-warnings"
             ],
+            // "console": "integratedTerminal"
             "outputCapture": "std"
         },
         {
@@ -26,3 +24,4 @@
         }
     ]
 }
+
