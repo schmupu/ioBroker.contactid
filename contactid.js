@@ -157,14 +157,16 @@ function ackCID(cid) {
   let ack = null;
   switch (getAlarmSystem(cid.subscriber)) {
     case "lupusec_xt1":
-      ack = new Buffer(1);
+      ack = Buffer.alloc(1);
       ack[0] = 6; //Acknowledge Lupusex 0x6
       break;
     case "lupusec_xt1p":
     case "lupusec_xt2":
     case "lupusec_xt2p":
     case "lupusec_xt3":
-      ack = cid.data; // komplette Nachricht wieder zurückegeben
+      // ack = cid.data; // komplette Nachricht wieder zurückegeben
+      ack = Buffer.alloc(1);
+      ack[0] = 6; //Acknowledge Lupusex 0x6
       break;
     default:
       ack = null;

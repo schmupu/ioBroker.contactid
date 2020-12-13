@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "contactid",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "news": {
+      "1.0.2": {
+        "en": "Bugfixing",
+        "de": "Bugfixing",
+        "ru": "Исправление ошибок",
+        "pt": "Corrigindo erro",
+        "nl": "bugfixing",
+        "fr": "Correction de bugs",
+        "it": "bugfixing",
+        "es": "Corrección de errores",
+        "pl": "Naprawa błędów",
+        "zh-cn": "错误修正"
+      },
       "1.0.1": {
         "en": "Bugfixing",
         "de": "Bugfixing",

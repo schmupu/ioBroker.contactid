@@ -77,6 +77,9 @@ The Contact-ID message
 
 ## Changelog
 
+### 1.0.2 (2020.12.13)
+* (Stübi) Bugfixing, ACK-invalid Format - Issue #14 
+
 ### 1.0.1 (2019.10.14)
 * (Stübi) Bugfixing, Issue #9 
 

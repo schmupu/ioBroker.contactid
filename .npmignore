@@ -9,4 +9,3 @@ test
 .travis.yml
 appveyor.yml
 .DS_Store
-package-lock.json

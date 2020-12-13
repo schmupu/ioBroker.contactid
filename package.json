@@ -1,6 +1,6 @@
 {
   "name": "iobroker.contactid",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ioBroker contactid Adapter",
   "author": {
     "name": "Thorsten Stueben",
@@ -27,13 +27,13 @@
     "url": "https://github.com/schmupu/ioBroker.contactid"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^1.0.3"
+    "@iobroker/adapter-core": "^2.4.0"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "mocha": "^4.1.0",
-    "chai": "^4.1.2",
-    "@iobroker/testing": "^1.1.10"
+    "gulp": "^4.0.2",
+    "mocha": "^8.2.1",
+    "chai": "^4.2.0",
+    "@iobroker/testing": "^2.4.0"
   },
   "main": "contactid.js",
   "scripts": {
