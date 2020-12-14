@@ -1,10 +1,13 @@
 {
 	"cli": true,
-	"adapterName": "speedtest",
-	"title": "Internet Speedtest",
-	"description": "Checks the internet speed",
+	"adapterName": "contactid",
+	"title": "Contact ID server for burglar alarms",
+	"description": "Contact ID server for burglar alarms",
 	"keywords": [
-		"speed internet"
+		"contactid",
+		"lupusec",
+		"burglar",
+		"alarm"
 	],
 	"expert": "no",
 	"features": [

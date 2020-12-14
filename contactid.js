@@ -13,9 +13,6 @@ let server = undefined; // Server instance
 
 class Contactid extends utils.Adapter {
 
-  /**
-   * @param {Partial<utils.AdapterOptions>} [options={}]
-   */
   constructor(options) {
     super({
       ...options,
@@ -33,7 +30,7 @@ class Contactid extends utils.Adapter {
    */
   async onReady() {
     await this.setStateAsync('info.connection', { val: true, ack: true });
-    this.log.info("Starting : " + this.namespace);
+    this.log.info('Starting : ' + this.namespace);
     // delete not used / missing object in configuration
     this.deleteObjects();
     // add object from configuration.
@@ -178,14 +175,14 @@ class Contactid extends utils.Adapter {
   ackCID(cid) {
     let ack = undefined;
     switch (this.getAlarmSystem(cid.subscriber)) {
-      case "lupusec_xt1":
+      case 'lupusec_xt1':
         ack = Buffer.alloc(1);
         ack[0] = 6; //Acknowledge Lupusex 0x6
         break;
-      case "lupusec_xt1p":
-      case "lupusec_xt2":
-      case "lupusec_xt2p":
-      case "lupusec_xt3":
+      case 'lupusec_xt1p':
+      case 'lupusec_xt2':
+      case 'lupusec_xt2p':
+      case 'lupusec_xt3':
         // ack = cid.data; // komplette Nachricht wieder zurückegeben
         ack = Buffer.alloc(1);
         ack[0] = 6; //Acknowledge Lupusex 0x6
@@ -324,9 +321,6 @@ class Contactid extends utils.Adapter {
 // @ts-ignore parent is a valid property on module
 if (module.parent) {
   // Export the constructor in compact mode
-  /**
-   * @param {Partial<utils.AdapterOptions>} [options={}]
-   */
   module.exports = (options) => new Contactid(options);
 } else {
   // otherwise start the instance directly
