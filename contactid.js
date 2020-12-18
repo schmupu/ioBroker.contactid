@@ -45,9 +45,10 @@ class Contactid extends utils.Adapter {
    * Is called when adapter shuts down - callback has to be called under any circumstances!
    * @param {() => void} callback
    */
-  onUnload(callback) {
+  async onUnload(callback) {
     try {
       // Here you must clear all timeouts or intervals that may still be active
+      await this.setStateAsync('info.connection', { val: false, ack: true });
       callback();
     } catch (e) {
       callback();
