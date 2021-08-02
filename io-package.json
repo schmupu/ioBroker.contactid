@@ -71,7 +71,7 @@
 		"readme": "https://github.com/schmupu/ioBroker.contactid/blob/master/README.md",
 		"loglevel": "info",
 		"mode": "daemon",
-		"type": "network",
+		"type": "alarm",
 		"compact": true,
 		"connectionType": "cloud",
 		"dataSource": "poll",
