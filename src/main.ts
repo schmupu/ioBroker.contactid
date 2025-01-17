@@ -72,7 +72,7 @@ class contactid extends utils.Adapter {
     }
 
     /**
-     * Is called if a subscribed state changes
+     * Is called if a subscribed state changes.
      *
      * @param id id
      * @param state state
