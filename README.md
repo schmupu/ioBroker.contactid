@@ -1,4 +1,5 @@
 ![Logo](admin/contactid.png)
+
 # ioBroker.contactid
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.contactid.svg)](https://www.npmjs.com/package/iobroker.contactid)
@@ -12,24 +13,23 @@
 
 **Tests:** ![Test and Release](https://github.com/schmupu/ioBroker.contactid/workflows/Test%20and%20Release/badge.svg)
 
-
 The protocol Contact ID used by alarm systems to communicate with central stations.
 
 This adapter is a Contact ID Server. When an alarm event is triggered, the alarm system sends over IP the Contact ID message to the central station.
-You can use ioBroker with this adapter as central station. For example. you can send for a alarm by Conntact ID  a telegram message.  
+You can use ioBroker with this adapter as central station. For example. you can send for a alarm by Conntact ID a telegram message.
 
 The Contact-ID message
 
-  SSSS 18QEEEGGZZZC
+SSSS 18QEEEGGZZZC
 
-  * SSSS – Subscriber. These four digits identify the specific alarm system or customer to the central station. ioBroker allows longer subscriber names.
+- SSSS – Subscriber. These four digits identify the specific alarm system or customer to the central station. ioBroker allows longer subscriber names.
 
-  * 18 - Message Type. Basically this field should always be “18”.
-  * Q – Event Qualifier.
-  * EEE – Event Code.
-  * GG – Group/Partition Number.
-  * ZZZ – Zone Number (001 - 999). This is the number of the zone that triggered the alarm.
-  * C – Checksum.
+- 18 - Message Type. Basically this field should always be “18”.
+- Q – Event Qualifier.
+- EEE – Event Code.
+- GG – Group/Partition Number.
+- ZZZ – Zone Number (001 - 999). This is the number of the zone that triggered the alarm.
+- C – Checksum.
 
 [Contact ID protocol](http://www.technoimport.com.co/Producto/pdfs/ADEMCO%20-%20DC05_Contact_ID.pdf)
 
@@ -40,52 +40,60 @@ The Contact-ID message
 
     Choose the IP-address and port for listening for Conctact-ID requests.
     Register you subcriber name to identify you burglar alarm messages and
-  select your burglar alarm type.
+    select your burglar alarm type.
 
 3. Configure your burglar system to send Contact ID messages
 
     Lupusec XT1:
 
-      Einstellungen -> Contact ID : rptn://subcriber@ip-address-iobroker:port
-      Example: rptn://test@192.168.20.1:50000
+    Einstellungen -> Contact ID : rptn://subcriber@ip-address-iobroker:port
+    Example: rptn://test@192.168.20.1:50000
 
     Lupusec XT1+/XT2/XT2+/XT3:
 
-      Einstellungen -> Contact ID : ip://subcriber@ip-address-iobroker:port/CID
-      Example: ip://test@192.168.20.1:50000/CID
-
+    Einstellungen -> Contact ID : ip://subcriber@ip-address-iobroker:port/CID
+    Example: ip://test@192.168.20.1:50000/CID
 
 4. Testing the Adpater
 
-  Open command shell and type  
+Open command shell and type
 
-  ```
-  telnet ip-address-iobroker port
-  Example: telnet 192.168.20.1 50000
+```
+telnet ip-address-iobroker port
+Example: telnet 192.168.20.1 50000
 
-  ```
+```
 
- Now you can sen a Conntact ID Message. For Lupsec burglar alarm systems the
-  message begins and ends with [ and ]. Type in your telnet session:
+Now you can sen a Conntact ID Message. For Lupsec burglar alarm systems the
+message begins and ends with [ and ]. Type in your telnet session:
 
-  ```
-  [SSSS 18QEEEGGZZZC]
-  Example: [test 18160201010B]
-  ```
+```
+[SSSS 18QEEEGGZZZC]
+Example: [test 18160201010B]
+```
 
-  Now you can see the message in the ioBroker objects
-
+Now you can see the message in the ioBroker objects
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+
+- (Stübi) Redesign of Contact ID Adapter
+- (Stübi) Wokring now with nodejs 20 and 22
+- (Stübi) js-controller in version 6 and 7 will be supported (Issue #83, #84, #95)
+- (Stübi) nodejs 20 and nodejs 22 will be suported (Issue #87)
+- (Stübi) states moved to channel subscriber
+
 ### 1.0.2 (2020.12.13)
-* (Stübi) Bugfixing, ACK-invalid Format - Issue #14 
+
+- (Stübi) Bugfixing, ACK-invalid Format - Issue #14
 
 ### 1.0.1 (2019.10.14)
-* (Stübi) Bugfixing, Issue #9 
 
+- (Stübi) Bugfixing, Issue #9
 
 ## License
+
 MIT License
 
 Copyright (c) 2020 Thorsten Stueben <thorsten@stueben.de>

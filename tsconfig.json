@@ -1,39 +1,39 @@
 // Root tsconfig to set the settings and power editor support for all TS files
 {
-	"compileOnSave": true,
-	"compilerOptions": {
-		// do not compile anything, this file is just to configure type checking
-		"noEmit": true,
+    // To update the compilation target, install a different version of @tsconfig/node... and reference it here
+    // https://github.com/tsconfig/bases#node-20-tsconfigjson
+    "extends": "@tsconfig/node20/tsconfig.json",
+    "compilerOptions": {
+        // do not compile anything, this file is just to configure type checking
+        // the compilation is configured in tsconfig.build.json
+        "noEmit": true,
 
-		// check JS files
-		"allowJs": true,
-		"checkJs": true,
+        // check JS files, but do not compile them => tsconfig.build.json
+        "allowJs": true,
+        "checkJs": true,
 
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"esModuleInterop": true,
-		// this is necessary for the automatic typing of the adapter config
-		"resolveJsonModule": true,
+        "noEmitOnError": true,
+        "outDir": "./build/",
+        "removeComments": false,
 
-		// Set this to false if you want to disable the very strict rules (not recommended)
-		"strict": true,
-		// Or enable some of those features for more fine-grained control
-		// "strictNullChecks": true,
-		// "strictPropertyInitialization": true,
-		// "strictBindCallApply": true,
-		"noImplicitAny": false,
-		// "noUnusedLocals": true,
-		// "noUnusedParameters": true,
+        // This is necessary for the automatic typing of the adapter config
+        "resolveJsonModule": true,
 
-		// Consider targetting es2019 or higher if you only support Node.js 12+
-		"target": "es2018",
+        // If you want to disable the stricter type checks (not recommended), uncomment the following line
+        // "strict": false,
+        // And enable some of those features for more fine-grained control
+        // "strictNullChecks": true,
+        // "strictPropertyInitialization": true,
+        // "strictBindCallApply": true,
+        // "noImplicitAny": true,
+        // "noUnusedLocals": true,
+        // "noUnusedParameters": true,
+        // Uncomment this if you want the old behavior of catch variables being `any`
+        // "useUnknownInCatchVariables": false,
 
-	},
-	"include": [
-		"**/*.js",
-		"**/*.d.ts"
-	],
-	"exclude": [
-		"node_modules/**"
-	]
+        "sourceMap": true,
+        "inlineSourceMap": false
+    },
+    "include": ["src/**/*.ts", "test/**/*.ts"],
+    "exclude": ["build/**", "node_modules/**", "widgets/**"]
 }

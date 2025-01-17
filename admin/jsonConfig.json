@@ -1,0 +1,84 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "_options": {
+            "type": "panel",
+            "label": "Main Settings",
+            "items": {
+                "bind": {
+                    "newLine": true,
+                    "type": "ip",
+                    "listenOnAllPorts": true,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4,
+                    "xl": 4,
+                    "xs": 12,
+                    "label": "Listen IP"
+                },
+                "port": {
+                    "type": "number",
+                    "min": 1,
+                    "max": 65535,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4,
+                    "xl": 4,
+                    "xs": 12,
+                    "label": "Listen Port"
+                }
+            }
+        },
+        "_subscriber": {
+            "type": "panel",
+            "label": "Subscriber",
+            "items": {
+                "keys": {
+                    "newLine": true,
+                    "type": "table",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 10,
+                    "xl": 10,
+                    "xs": 12,
+                    "label": "Keys",
+                    "items": [
+                        {
+                            "type": "text",
+                            "attr": "subscriber",
+                            "width": "40%",
+                            "title": "Subscriber",
+                            "tooltip": "Contact ID subscriber",
+                            "filter": false,
+                            "sort": false,
+                            "style": {
+                                "width": "calc(100% - 100px)"
+                            }
+                        },
+                        {
+                            "type": "select",
+                            "attr": "alarmsystem",
+                            "width": "40%",
+                            "title": "Alarmsystem",
+                            "tooltip": "Alarmsystem",
+                            "filter": false,
+                            "sort": false,
+                            "options": [
+                                { "label": "Lupusec XT1", "value": "lupusec_xt1" },
+                                { "label": "Lupusec XT1 Plus", "value": "lupusec_xt1p" },
+                                { "label": "Lupusec XT2", "value": "lupusec_xt2" },
+                                { "label": "Lupusec XT2 Plus", "value": "lupusec_xt2p" },
+                                { "label": "Lupusec XT3", "value": "lupusec_xt3" },
+                                { "label": "Lupusec XT4", "value": "lupusec_xt4" }
+                            ],
+                            "style": {
+                                "width": "calc(100% - 100px)"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}
