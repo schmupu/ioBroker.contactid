@@ -6,7 +6,6 @@
 [![Downloads](https://img.shields.io/npm/dm/iobroker.contactid.svg)](https://www.npmjs.com/package/iobroker.contactid)
 ![Number of Installations (latest)](http://iobroker.live/badges/contactid-installed.svg)
 ![Number of Installations (stable)](http://iobroker.live/badges/contactid-stable.svg)
-[![Dependency Status](https://img.shields.io/david/schmupu/iobroker.contactid.svg)](https://david-dm.org/schmupu/iobroker.contactid)
 [![Known Vulnerabilities](https://snyk.io/test/github/schmupu/ioBroker.contactid/badge.svg)](https://snyk.io/test/github/schmupu/ioBroker.contactid)
 
 [![NPM](https://nodei.co/npm/iobroker.contactid.png?downloads=true)](https://nodei.co/npm/iobroker.contactid/)
@@ -49,7 +48,7 @@ SSSS 18QEEEGGZZZC
     Einstellungen -> Contact ID : rptn://subcriber@ip-address-iobroker:port
     Example: rptn://test@192.168.20.1:50000
 
-    Lupusec XT1+/XT2/XT2+/XT3:
+    Lupusec XT1+/XT2/XT2+/XT3/XT4:
 
     Einstellungen -> Contact ID : ip://subcriber@ip-address-iobroker:port/CID
     Example: ip://test@192.168.20.1:50000/CID
@@ -80,9 +79,14 @@ Now you can see the message in the ioBroker objects
 
 - (Stübi) Redesign of Contact ID Adapter
 - (Stübi) Wokring now with nodejs 20 and 22
-- (Stübi) js-controller in version 6 and 7 will be supported (Issue #83, #84, #95)
-- (Stübi) nodejs 20 and nodejs 22 will be suported (Issue #87)
+- (Stübi) js-controller in version 6 and 7 will be supported (Issue #19, #28)
+- (Stübi) nodejs 20 and nodejs 22 will be suported (Issue #20, #36)
 - (Stübi) states moved to channel subscriber
+- (Stübi) add Lupusec XT4 to list of alarm systems
+- (Stübi) migration to eslint 9 (Issue #39)
+- (Stübi) change admin configuration (Issue #38)
+- (Stübi) fixed dependency ot iobroker adapter-core (Issue #37)
+- (Stübi) fixed iobroker notifications (Issue 35)
 
 ### 1.0.2 (2020.12.13)
 
@@ -96,7 +100,7 @@ Now you can see the message in the ioBroker objects
 
 MIT License
 
-Copyright (c) 2020 Thorsten Stueben <thorsten@stueben.de>
+Copyright (c) 2025 Thorsten Stueben <thorsten@stueben.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
