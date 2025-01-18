@@ -75,6 +75,10 @@ Now you can see the message in the ioBroker objects
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+
+- (Stübi) Fixed Notification from ioBroker Check and Service Bot (Issue #46)
+
 ### 2.0.0 (2025-01-18)
 
 - (Stübi) Redesign of Contact ID Adapter.
@@ -91,9 +95,6 @@ Now you can see the message in the ioBroker objects
 ### 1.0.2 (2020.12.13)
 
 - (Stübi) Bugfixing, ACK-invalid Format - Issue #14
-
-### 1.0.1 (2019.10.14)
-
 - (Stübi) Bugfixing, Issue #9
 
 ## License
