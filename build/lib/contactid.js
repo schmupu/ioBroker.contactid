@@ -18,6 +18,10 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
@@ -32,13 +36,28 @@ var dp = __toESM(require("./datapoints"));
 class ContactID {
   adapter;
   server;
+  /**
+   * Construtor
+   *
+   * @param adapter iobroker adapter
+   */
   constructor(adapter) {
     this.adapter = adapter;
   }
+  /**
+   * Convert subcriber to ID for using as channel name. Special characters and spaces are deleted.
+   *
+   * @param subscriber subscriber
+   */
   getSubscriberID(subscriber) {
     const id = subscriber.replace(/[.\s]+/g, "_");
     return id;
   }
+  /**
+   * read configuration by subscriber and return the alarmsytem
+   *
+   * @param subscriber subscriber
+   */
   getAlarmSystem(subscriber) {
     for (const key of this.adapter.config.keys) {
       if (key.subscriber == subscriber) {
@@ -47,6 +66,11 @@ class ContactID {
     }
     return "";
   }
+  /**
+   * Acknowledge for CID
+   *
+   * @param cid cid
+   */
   ackCID(cid) {
     let ack = void 0;
     switch (this.getAlarmSystem(cid.subscriber)) {
@@ -67,6 +91,11 @@ class ContactID {
     }
     return ack;
   }
+  /**
+   * Set state for contact id message
+   *
+   * @param cid cid
+   */
   setStatesCID(cid) {
     const obj = dp.dpCID || {};
     let val = void 0;
@@ -117,10 +146,20 @@ class ContactID {
       }
     }
   }
+  /**
+   * Text for Events
+   *
+   * @param event Eventnummber
+   */
   getEventText(event) {
     const events = dp.events;
     return events[event] || "";
   }
+  /**
+   * parse contactid and put into object
+   *
+   * @param data contactid message from alarm system
+   */
   parseCID(data) {
     const reg = /^\[(.+) (.{2})(.)(.{3})(.{2})(.{3})(.)(.*)\]/gm;
     const match = reg.exec(data);
@@ -140,6 +179,9 @@ class ContactID {
     }
     return void 0;
   }
+  /**
+   * Delete unused subscriber
+   */
   deleteObjects() {
     this.adapter.getAdapterObjects((obj) => {
       for (const idx in obj) {
@@ -162,6 +204,9 @@ class ContactID {
       }
     });
   }
+  /**
+   * read configuration, and create for all subscribers a channel and states
+   */
   createObjects() {
     for (const key of this.adapter.config.keys) {
       const id = `subscriber.${this.getSubscriberID(key.subscriber)}`;
@@ -187,6 +232,9 @@ class ContactID {
       }
     }
   }
+  /**
+   * start socket server for listining for contact IDs
+   */
   serverStart() {
     this.server = net.createServer((sock) => {
       const remoteAddress = `${sock.remoteAddress}:${sock.remotePort}`;
@@ -219,6 +267,12 @@ class ContactID {
       this.adapter.log.info(text);
     });
   }
+  /**
+   * Wait (sleep) x seconds
+   *
+   * @param seconds time in seconds
+   * @returns void
+   */
   static wait(seconds) {
     return new Promise((resolve) => setTimeout(resolve, seconds * 1e3));
   }

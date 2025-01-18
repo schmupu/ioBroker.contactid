@@ -27,6 +27,7 @@ const dpCID = {
     type: "string",
     role: "text",
     name: "Subscriber",
+    // 4 Digit, 0-9,B-F
     read: true,
     write: false,
     def: ""
@@ -35,6 +36,7 @@ const dpCID = {
     type: "string",
     role: "text",
     name: "Message Type",
+    // 2 Digits, 0-9
     read: true,
     write: false,
     def: ""
@@ -43,6 +45,7 @@ const dpCID = {
     type: "string",
     role: "text",
     name: "Event",
+    // 3 Digit, 0-9,B-F
     read: true,
     write: false,
     def: ""
@@ -51,6 +54,7 @@ const dpCID = {
     type: "string",
     role: "text",
     name: "Event description",
+    // String
     read: true,
     write: false,
     def: ""
@@ -59,6 +63,7 @@ const dpCID = {
     type: "string",
     role: "text",
     name: "Group",
+    // 2 Digit, 0-9, B-F
     read: true,
     write: false,
     def: ""
@@ -67,6 +72,7 @@ const dpCID = {
     type: "string",
     role: "value",
     name: "Qualifier",
+    // 1 Digit, 1,3 or 6
     read: true,
     write: false,
     def: ""
@@ -75,6 +81,7 @@ const dpCID = {
     type: "string",
     role: "text",
     name: "Sensor",
+    // Sensor or Zone number, 3 Digit, 0-9, B-F
     read: true,
     write: false,
     def: ""
@@ -83,6 +90,7 @@ const dpCID = {
     type: "string",
     role: "text",
     name: "Message",
+    // complete CID Message
     read: true,
     write: false,
     def: ""
