@@ -74,9 +74,10 @@ Example: [test 18160201010B]
 Now you can see the message in the ioBroker objects
 
 ## Changelog
+
 ### 2.0.0 (2025-01-18)
 
-- (Stübi) Redesign of Contact ID Adapter
+- (Stübi) Redesign of Contact ID Adapter.
 - (Stübi) Wokring now with nodejs 20 and 22
 - (Stübi) js-controller in version 6 and 7 will be supported (Issue #19, #28)
 - (Stübi) nodejs 20 and nodejs 22 will be suported (Issue #20, #36)
