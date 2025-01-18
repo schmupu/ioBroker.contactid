@@ -74,8 +74,7 @@ Example: [test 18160201010B]
 Now you can see the message in the ioBroker objects
 
 ## Changelog
-
-### **WORK IN PROGRESS**
+### 2.0.0 (2025-01-18)
 
 - (Stübi) Redesign of Contact ID Adapter
 - (Stübi) Wokring now with nodejs 20 and 22

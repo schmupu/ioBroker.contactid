@@ -1,6 +1,6 @@
 {
   "name": "iobroker.contactid",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "The protocol Contact ID used by alarm systems to communicate with central stations",
   "author": {
     "name": "Thorsten Stueben",
