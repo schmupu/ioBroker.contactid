@@ -21,13 +21,21 @@ export const dpCID: defCID = {
         write: false,
         def: '',
     },
+    msgtype: {
+        type: 'string',
+        role: 'text',
+        name: 'Message Type', // 2 Digits, 0-9
+        read: true,
+        write: false,
+        def: '',
+    },
     event: {
-        type: 'number',
+        type: 'string',
         role: 'text',
         name: 'Event', // 3 Digit, 0-9,B-F
         read: true,
         write: false,
-        def: 0,
+        def: '',
     },
     eventtext: {
         type: 'string',
@@ -46,12 +54,12 @@ export const dpCID: defCID = {
         def: '',
     },
     qualifier: {
-        type: 'number',
+        type: 'string',
         role: 'value',
         name: 'Qualifier', // 1 Digit, 1,3 or 6
         read: true,
         write: false,
-        def: 0,
+        def: '',
     },
     sensor: {
         type: 'string',

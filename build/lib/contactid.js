@@ -39,26 +39,6 @@ class ContactID {
     const id = subscriber.replace(/[.\s]+/g, "_");
     return id;
   }
-  createObjectCID(id, key) {
-    const obj = dp.dpCID || {};
-    this.adapter.setObjectNotExists(id, {
-      type: "channel",
-      common: {
-        name: key.subscriber
-      },
-      native: {}
-    });
-    for (const prop in obj) {
-      const sid = `${id}.${prop}`;
-      const parameter = JSON.parse(JSON.stringify(obj[prop]));
-      parameter.name = `${key.subscriber} - ${parameter.name}`;
-      this.adapter.setObjectNotExists(sid, {
-        type: "state",
-        common: parameter,
-        native: {}
-      });
-    }
-  }
   getAlarmSystem(subscriber) {
     for (const key of this.adapter.config.keys) {
       if (key.subscriber == subscriber) {
@@ -90,15 +70,20 @@ class ContactID {
   setStatesCID(cid) {
     const obj = dp.dpCID || {};
     let val = void 0;
+    let found = false;
     if (cid) {
       for (const key of this.adapter.config.keys) {
         if (key.subscriber == cid.subscriber) {
           const id = this.getSubscriberID(cid.subscriber);
+          found = true;
           for (const prop in obj) {
             const sid = `subscriber.${id}.${prop}`;
             switch (prop) {
               case "subscriber":
                 val = cid.subscriber;
+                break;
+              case "msgtype":
+                val = cid.msgtype;
                 break;
               case "event":
                 val = cid.event;
@@ -116,14 +101,19 @@ class ContactID {
                 val = cid.sensor;
                 break;
               case "message":
-                val = cid.data;
+                val = cid.data.toString();
                 break;
               default:
                 val = void 0;
             }
+            this.adapter.log.debug(`Set value ${sid} : ${val}`);
             this.adapter.setState(sid, { val, ack: true });
           }
+          return;
         }
+      }
+      if (found === false) {
+        this.adapter.log.info(`Subcriber ${cid.subscriber} not customizies.`);
       }
     }
   }
@@ -132,18 +122,19 @@ class ContactID {
     return events[event] || "";
   }
   parseCID(data) {
-    const reg = /^\[(.+) 18(.)(.{3})(.{2})(.{3})(.)(.*)\]/gm;
+    const reg = /^\[(.+) (.{2})(.)(.{3})(.{2})(.{3})(.)(.*)\]/gm;
     const match = reg.exec(data);
     if (match) {
       const cid = {
         data,
         subscriber: match[1].trim(),
-        qualifier: Number(match[2]),
-        event: Number(match[3]),
-        eventtext: this.getEventText(match[3]),
-        group: match[4],
-        sensor: match[5],
-        checksum: Number(match[6])
+        msgtype: match[2],
+        qualifier: match[3],
+        event: match[4],
+        eventtext: this.getEventText(match[4]),
+        group: match[5],
+        sensor: match[6],
+        checksum: match[7]
       };
       return cid;
     }
@@ -152,7 +143,7 @@ class ContactID {
   deleteObjects() {
     this.adapter.getAdapterObjects((obj) => {
       for (const idx in obj) {
-        if (!idx.startsWith(`${this.adapter.namespace}.subscriber`) || obj[idx].type !== "channel") {
+        if (!idx.startsWith(`${this.adapter.namespace}.subscriber.`) || obj[idx].type !== "channel") {
           continue;
         }
         let found = false;
@@ -174,7 +165,26 @@ class ContactID {
   createObjects() {
     for (const key of this.adapter.config.keys) {
       const id = `subscriber.${this.getSubscriberID(key.subscriber)}`;
-      this.createObjectCID(id, key);
+      const obj = dp.dpCID || {};
+      this.adapter.log.debug(`Create object ${id}`);
+      this.adapter.setObjectNotExists(id, {
+        type: "channel",
+        common: {
+          name: key.subscriber
+        },
+        native: {}
+      });
+      for (const prop in obj) {
+        const sid = `${id}.${prop}`;
+        const parameter = JSON.parse(JSON.stringify(obj[prop]));
+        parameter.name = `${key.subscriber} - ${parameter.name}`;
+        this.adapter.log.debug(`Create object ${sid}`);
+        this.adapter.setObjectNotExists(sid, {
+          type: "state",
+          common: parameter,
+          native: {}
+        });
+      }
     }
   }
   serverStart() {
@@ -191,6 +201,7 @@ class ContactID {
           const ack = this.ackCID(cid);
           sock.end(ack);
         } else {
+          this.adapter.log.info("Received message could not be parsed!");
           sock.end();
         }
       });
@@ -198,11 +209,13 @@ class ContactID {
         this.adapter.log.info(`connection from ${remoteAddress} closed`);
       });
       sock.on("error", (err) => {
+        this.adapter.setState("info.connection", { val: false, ack: true });
         this.adapter.log.error(`Connection ${remoteAddress}, Error: ${err.message}`);
       });
     });
     this.server.listen(this.adapter.config.port, this.adapter.config.bind, () => {
       const text = `Contact ID Server listening on IP-Adress: ${this.server.address().address}:${this.server.address().port}`;
+      this.adapter.setState("info.connection", { val: true, ack: true });
       this.adapter.log.info(text);
     });
   }

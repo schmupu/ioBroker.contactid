@@ -31,7 +31,6 @@ class contactid extends utils.Adapter {
         this.log.info(`Starting: ${this.namespace}`);
         const contactid = new ContactID(this);
         if (contactid) {
-            await this.setStateAsync('info.connection', { val: true, ack: true });
             await ContactID.wait(5);
             contactid.deleteObjects();
             contactid.createObjects();
@@ -48,12 +47,12 @@ class contactid extends utils.Adapter {
      */
     private async onUnload(callback: () => void): Promise<void> {
         try {
-            await this.setStateAsync('info.connection', { val: true, ack: true });
             callback();
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error) {
             callback();
         }
+        await this.setStateAsync('info.connection', { val: true, ack: true });
     }
 
     // If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.

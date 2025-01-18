@@ -42,7 +42,7 @@
                     "lg": 10,
                     "xl": 10,
                     "xs": 12,
-                    "label": "Keys",
+                    "label": "List of Subscribers",
                     "items": [
                         {
                             "type": "text",
@@ -60,7 +60,7 @@
                             "type": "select",
                             "attr": "alarmsystem",
                             "width": "40%",
-                            "title": "Alarmsystem",
+                            "title": "Type of Alarmsystem",
                             "tooltip": "Alarmsystem",
                             "filter": false,
                             "sort": false,

@@ -34,7 +34,6 @@ class contactid extends utils.Adapter {
     this.log.info(`Starting: ${this.namespace}`);
     const contactid2 = new import_contactid.ContactID(this);
     if (contactid2) {
-      await this.setStateAsync("info.connection", { val: true, ack: true });
       await import_contactid.ContactID.wait(5);
       contactid2.deleteObjects();
       contactid2.createObjects();
@@ -45,11 +44,11 @@ class contactid extends utils.Adapter {
   }
   async onUnload(callback) {
     try {
-      await this.setStateAsync("info.connection", { val: true, ack: true });
       callback();
     } catch (error) {
       callback();
     }
+    await this.setStateAsync("info.connection", { val: true, ack: true });
   }
   onObjectChange(id, obj) {
     if (obj) {

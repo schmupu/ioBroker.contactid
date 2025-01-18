@@ -31,13 +31,21 @@ const dpCID = {
     write: false,
     def: ""
   },
+  msgtype: {
+    type: "string",
+    role: "text",
+    name: "Message Type",
+    read: true,
+    write: false,
+    def: ""
+  },
   event: {
-    type: "number",
+    type: "string",
     role: "text",
     name: "Event",
     read: true,
     write: false,
-    def: 0
+    def: ""
   },
   eventtext: {
     type: "string",
@@ -56,12 +64,12 @@ const dpCID = {
     def: ""
   },
   qualifier: {
-    type: "number",
+    type: "string",
     role: "value",
     name: "Qualifier",
     read: true,
     write: false,
-    def: 0
+    def: ""
   },
   sensor: {
     type: "string",

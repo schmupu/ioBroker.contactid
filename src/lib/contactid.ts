@@ -2,14 +2,15 @@ import * as net from 'net';
 import * as dp from './datapoints';
 
 interface ifCID {
+    data: any;
     subscriber: string;
-    data: any; // Buffer<ArrayBuffer>;
-    event: number;
+    msgtype: string;
+    event: string;
     eventtext: string;
     group: string;
-    qualifier: number;
+    qualifier: string;
     sensor: string;
-    checksum: number;
+    checksum: string;
 }
 
 /**
@@ -36,33 +37,6 @@ export class ContactID {
     private getSubscriberID(subscriber: string): string {
         const id = subscriber.replace(/[.\s]+/g, '_');
         return id;
-    }
-
-    /**
-     * create for every ID a channel and create a few states
-     *
-     * @param id id
-     * @param key key
-     */
-    private createObjectCID(id: any, key: any): void {
-        const obj = dp.dpCID || {};
-        this.adapter.setObjectNotExists(id, {
-            type: 'channel',
-            common: {
-                name: key.subscriber,
-            },
-            native: {},
-        });
-        for (const prop in obj) {
-            const sid = `${id}.${prop}`;
-            const parameter = JSON.parse(JSON.stringify(obj[prop]));
-            parameter.name = `${key.subscriber} - ${parameter.name}`;
-            this.adapter.setObjectNotExists(sid, {
-                type: 'state',
-                common: parameter,
-                native: {},
-            });
-        }
     }
 
     /**
@@ -114,15 +88,20 @@ export class ContactID {
     private setStatesCID(cid: ifCID): void {
         const obj = dp.dpCID || {};
         let val = undefined;
+        let found = false;
         if (cid) {
             for (const key of this.adapter.config.keys) {
                 if (key.subscriber == cid.subscriber) {
                     const id = this.getSubscriberID(cid.subscriber);
+                    found = true;
                     for (const prop in obj) {
                         const sid = `subscriber.${id}.${prop}`;
                         switch (prop) {
                             case 'subscriber':
                                 val = cid.subscriber;
+                                break;
+                            case 'msgtype':
+                                val = cid.msgtype;
                                 break;
                             case 'event':
                                 val = cid.event;
@@ -140,14 +119,19 @@ export class ContactID {
                                 val = cid.sensor;
                                 break;
                             case 'message':
-                                val = cid.data;
+                                val = cid.data.toString();
                                 break;
                             default:
                                 val = undefined;
                         }
+                        this.adapter.log.debug(`Set value ${sid} : ${val}`);
                         this.adapter.setState(sid, { val: val, ack: true });
                     }
+                    return;
                 }
+            }
+            if (found === false) {
+                this.adapter.log.info(`Subcriber ${cid.subscriber} not customizies.`);
             }
         }
     }
@@ -168,19 +152,20 @@ export class ContactID {
      * @param data contactid message from alarm system
      */
     private parseCID(data: any): ifCID | undefined {
-        const reg = /^\[(.+) 18(.)(.{3})(.{2})(.{3})(.)(.*)\]/gm;
+        const reg = /^\[(.+) (.{2})(.)(.{3})(.{2})(.{3})(.)(.*)\]/gm;
         const match = reg.exec(data);
         if (match) {
             // <ACCT><MT><QXYZ><GG><CCC><S>
             const cid = {
                 data: data,
                 subscriber: match[1].trim(),
-                qualifier: Number(match[2]),
-                event: Number(match[3]),
-                eventtext: this.getEventText(match[3]),
-                group: match[4],
-                sensor: match[5],
-                checksum: Number(match[6]),
+                msgtype: match[2],
+                qualifier: match[3],
+                event: match[4],
+                eventtext: this.getEventText(match[4]),
+                group: match[5],
+                sensor: match[6],
+                checksum: match[7],
             };
             return cid;
         }
@@ -188,13 +173,12 @@ export class ContactID {
     }
 
     /**
-     * list of all objects (devices, channel, states) for this instance. call function  deleteChannel
-     * for deleting old (not used) channels in configuration
+     * Delete unused subscriber
      */
     public deleteObjects(): void {
         this.adapter.getAdapterObjects((obj: any) => {
             for (const idx in obj) {
-                if (!idx.startsWith(`${this.adapter.namespace}.subscriber`) || obj[idx].type !== 'channel') {
+                if (!idx.startsWith(`${this.adapter.namespace}.subscriber.`) || obj[idx].type !== 'channel') {
                     continue;
                 }
                 let found = false;
@@ -220,7 +204,26 @@ export class ContactID {
     public createObjects(): void {
         for (const key of this.adapter.config.keys) {
             const id = `subscriber.${this.getSubscriberID(key.subscriber)}`;
-            this.createObjectCID(id, key);
+            const obj = dp.dpCID || {};
+            this.adapter.log.debug(`Create object ${id}`);
+            this.adapter.setObjectNotExists(id, {
+                type: 'channel',
+                common: {
+                    name: key.subscriber,
+                },
+                native: {},
+            });
+            for (const prop in obj) {
+                const sid = `${id}.${prop}`;
+                const parameter = JSON.parse(JSON.stringify(obj[prop]));
+                parameter.name = `${key.subscriber} - ${parameter.name}`;
+                this.adapter.log.debug(`Create object ${sid}`);
+                this.adapter.setObjectNotExists(sid, {
+                    type: 'state',
+                    common: parameter,
+                    native: {},
+                });
+            }
         }
     }
 
@@ -243,6 +246,7 @@ export class ContactID {
                     const ack = this.ackCID(cid);
                     sock.end(ack);
                 } else {
+                    this.adapter.log.info('Received message could not be parsed!');
                     sock.end();
                 }
             });
@@ -250,12 +254,14 @@ export class ContactID {
                 this.adapter.log.info(`connection from ${remoteAddress} closed`);
             });
             sock.on('error', err => {
+                this.adapter.setState('info.connection', { val: false, ack: true });
                 this.adapter.log.error(`Connection ${remoteAddress}, Error: ${err.message}`);
             });
         });
 
         this.server.listen(this.adapter.config.port, this.adapter.config.bind, () => {
             const text = `Contact ID Server listening on IP-Adress: ${this.server.address().address}:${this.server.address().port}`;
+            this.adapter.setState('info.connection', { val: true, ack: true });
             this.adapter.log.info(text);
         });
     }
