@@ -1,5 +1,20 @@
 {
-    "contactid adapter settings": "Настройки адаптера для contactid",
-    "option1": "вариант 1",
-    "option2": "вариант 2"
+    "on save adapter restarts with new config immediately": "При сохранении адаптера перезагружается с новой конфигурацией немедленно",
+    "Main settings": "Основные настройки",
+    "Subscribers": "Подписчики",
+    "Bind IP-Address": "Свяжите ip-address",
+    "Port": "Порт",
+    "IP-Address": "Ip-address",
+    "Subscriber": "Подписчик",
+    "alarmsystem": "тревога",
+    "Path for saving SIA messages": "Путь для сохранения контактных сообщений",
+    "Save incomming SIA messages": "Сохранить Infocming ContactId",
+    "Main Settings": "Основные настройки",
+    "Listen IP": "Слушайте IP",
+    "Listen Port": "Слушать порт",
+    "Path for saving ContactID messages": "Путь для сохранения контактных сообщений",
+    "Save incomming ContactID messages": "Сохранить Infocming ContactId",
+    "List of Subscribers": "Список подписчиков",
+    "Type of Alarmsystem": "Тип сигнализации",
+    "Listen IP-Address": "Слушайте ip-address"
 }

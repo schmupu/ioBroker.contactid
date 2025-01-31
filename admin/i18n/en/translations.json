@@ -1,5 +1,14 @@
 {
-    "contactid adapter settings": "Adapter settings for contactid",
-    "option1": "option1",
-    "option2": "option2"
+    "on save adapter restarts with new config immediately": "on save adapter restarts with new config immediately",
+    "Main Settings": "Main Settings",
+    "Subscribers": "Subscribers",
+    "Listen IP-Address": "Listen IP-Address",
+    "Listen Port": "Listen Port",
+    "IP-Address": "IP-Address",
+    "Subscriber": "Subscriber",
+    "alarmsystem": "alarmsystem",
+    "Path for saving ContactID messages": "Path for saving ContactID messages",
+    "Save incomming ContactID messages": "Save incomming ContactID messages",
+    "List of Subscribers": "List of Subscribers",
+    "Type of Alarmsystem": "Type of Alarmsystem"
 }

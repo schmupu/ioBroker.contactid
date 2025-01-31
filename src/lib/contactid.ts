@@ -1,7 +1,17 @@
+import { EventEmitter } from 'events';
 import * as net from 'net';
 import * as dp from './datapoints';
+import * as tools from './tools';
 
-interface ifCID {
+/**
+ * Interface subscriber
+ */
+export interface ifsubscriber {
+    subscriber: string;
+    alarmsystem: string;
+}
+
+export interface ifCID {
     data: any;
     subscriber: string;
     msgtype: string;
@@ -16,41 +26,69 @@ interface ifCID {
 /**
  * Contact ID Klasse
  */
-export class ContactID {
-    private adapter: any;
-    private server: any;
+export class ContactID extends EventEmitter {
+    private subscribers: ifsubscriber[];
+    private port: number;
+    private host: string;
+    private logger: any;
 
     /**
-     * Construtor
+     * Contructor
      *
-     * @param adapter iobroker adapter
+     * @param parameter parameter
+     * @param parameter.host bind host
+     * @param parameter.port bind port
+     * @param parameter.logger logger
      */
-    public constructor(adapter: any) {
-        this.adapter = adapter;
+    public constructor(parameter: { host: string; port: number; logger?: any }) {
+        super();
+        this.host = parameter.host;
+        this.port = parameter.port;
+        this.subscribers = [];
+        if (parameter.logger) {
+            this.logger = {
+                info: parameter.logger.info ? parameter.logger.info : parameter.logger,
+                debug: parameter.logger.debug ? parameter.logger.debug : parameter.logger,
+                error: parameter.logger.error ? parameter.logger.error : parameter.logger,
+            };
+        }
     }
 
     /**
-     * Convert subcriber to ID for using as channel name. Special characters and spaces are deleted.
+     * Set Subscribers
      *
-     * @param subscriber subscriber
+     * @param subcribers subscriber
      */
-    private getSubscriberID(subscriber: string): string {
-        const id = subscriber.replace(/[.\s]+/g, '_');
-        return id;
+    public setSubscribers(subcribers: ifsubscriber[]): void {
+        this.subscribers = subcribers;
+        if (this.subscribers.length === 0) {
+            throw new Error(`Subscribers are missing!`);
+        }
     }
 
     /**
      * read configuration by subscriber and return the alarmsytem
      *
      * @param subscriber subscriber
+     * @returns alarmsystem
      */
     private getAlarmSystem(subscriber: string): string {
-        for (const key of this.adapter.config.keys) {
-            if (key.subscriber == subscriber) {
-                return key.alarmsystem;
+        return this.getSubscriberInfo(subscriber).alarmsystem;
+    }
+
+    /**
+     * Get configuratoin for subscriber
+     *
+     * @param subscriber subscriber
+     * @returns configuration
+     */
+    private getSubscriberInfo(subscriber: string): ifsubscriber {
+        for (const key of this.subscribers) {
+            if (key.subscriber === subscriber) {
+                return key;
             }
         }
-        return '';
+        throw new Error(`Subscriber ${subscriber} unknown. Not found in configuratin!`);
     }
 
     /**
@@ -81,62 +119,6 @@ export class ContactID {
     }
 
     /**
-     * Set state for contact id message
-     *
-     * @param cid cid
-     */
-    private setStatesCID(cid: ifCID): void {
-        const obj = dp.dpCID || {};
-        let val = undefined;
-        let found = false;
-        if (cid) {
-            for (const key of this.adapter.config.keys) {
-                if (key.subscriber == cid.subscriber) {
-                    const id = this.getSubscriberID(cid.subscriber);
-                    found = true;
-                    for (const prop in obj) {
-                        const sid = `subscriber.${id}.${prop}`;
-                        switch (prop) {
-                            case 'subscriber':
-                                val = cid.subscriber;
-                                break;
-                            case 'msgtype':
-                                val = cid.msgtype;
-                                break;
-                            case 'event':
-                                val = cid.event;
-                                break;
-                            case 'eventtext':
-                                val = cid.eventtext;
-                                break;
-                            case 'group':
-                                val = cid.group;
-                                break;
-                            case 'qualifier':
-                                val = cid.qualifier;
-                                break;
-                            case 'sensor':
-                                val = cid.sensor;
-                                break;
-                            case 'message':
-                                val = cid.data.toString();
-                                break;
-                            default:
-                                val = undefined;
-                        }
-                        this.adapter.log.debug(`Set value ${sid} : ${val}`);
-                        this.adapter.setState(sid, { val: val, ack: true });
-                    }
-                    return;
-                }
-            }
-            if (found === false) {
-                this.adapter.log.info(`Subcriber ${cid.subscriber} not customizies.`);
-            }
-        }
-    }
-
-    /**
      * Text for Events
      *
      * @param event Eventnummber
@@ -151,13 +133,17 @@ export class ContactID {
      *
      * @param data contactid message from alarm system
      */
-    private parseCID(data: any): ifCID | undefined {
+    private parseCID(data: any): ifCID {
+        if (!data) {
+            throw new Error(`Could not parse ContactID message, because it is empty`);
+        }
+        const strdata = data.toString().trim();
         const reg = /^\[(.+) (.{2})(.)(.{3})(.{2})(.{3})(.)(.*)\]/gm;
-        const match = reg.exec(data);
+        const match = reg.exec(strdata);
         if (match) {
             // <ACCT><MT><QXYZ><GG><CCC><S>
             const cid = {
-                data: data,
+                data: strdata,
                 subscriber: match[1].trim(),
                 msgtype: match[2],
                 qualifier: match[3],
@@ -169,100 +155,48 @@ export class ContactID {
             };
             return cid;
         }
-        return undefined;
-    }
-
-    /**
-     * Delete unused subscriber
-     */
-    public deleteObjects(): void {
-        this.adapter.getAdapterObjects((obj: any) => {
-            for (const idx in obj) {
-                if (!idx.startsWith(`${this.adapter.namespace}.subscriber.`) || obj[idx].type !== 'channel') {
-                    continue;
-                }
-                let found = false;
-                for (const key of this.adapter.config.keys) {
-                    const idkey = `${this.adapter.namespace}.subscriber.${this.getSubscriberID(key.subscriber)}`;
-                    if (idx === idkey) {
-                        found = true;
-                        break;
-                    }
-                }
-                if (found === false) {
-                    const id = idx.replace('${this.adapter.namespace}.', '');
-                    this.adapter.log.debug(`Deleting object ${idx} recursive`);
-                    this.adapter.delObject(id, { recursive: true });
-                }
-            }
-        });
-    }
-
-    /**
-     * read configuration, and create for all subscribers a channel and states
-     */
-    public createObjects(): void {
-        for (const key of this.adapter.config.keys) {
-            const id = `subscriber.${this.getSubscriberID(key.subscriber)}`;
-            const obj = dp.dpCID || {};
-            this.adapter.log.debug(`Create object ${id}`);
-            this.adapter.setObjectNotExists(id, {
-                type: 'channel',
-                common: {
-                    name: key.subscriber,
-                },
-                native: {},
-            });
-            for (const prop in obj) {
-                const sid = `${id}.${prop}`;
-                const parameter = JSON.parse(JSON.stringify(obj[prop]));
-                parameter.name = `${key.subscriber} - ${parameter.name}`;
-                this.adapter.log.debug(`Create object ${sid}`);
-                this.adapter.setObjectNotExists(sid, {
-                    type: 'state',
-                    common: parameter,
-                    native: {},
-                });
-            }
-        }
+        throw new Error(`Could not parse ContactID message ${strdata}.`);
     }
 
     /**
      * start socket server for listining for contact IDs
      */
-    public serverStart(): void {
-        this.server = net.createServer(sock => {
+    public serverStartTCP(): void {
+        const servertcp = net.createServer(sock => {
             const remoteAddress = `${sock.remoteAddress}:${sock.remotePort}`;
-            this.adapter.log.debug(`New client connected: ${remoteAddress}`);
+            this.logger && this.logger.debug(`New client connected: ${remoteAddress}`);
             sock.on('data', data => {
-                const strdata = data.toString().trim();
-                this.adapter.log.info(`${remoteAddress} sending following message: ${strdata}`);
-                // [alarmanlage 18140101001B4B6]
-                // [alarmanlage 18160200000C5B7]
-                const cid = this.parseCID(strdata);
-                if (cid) {
-                    this.adapter.log.debug(`Received message: ${JSON.stringify(cid)}`);
-                    this.setStatesCID(cid);
+                try {
+                    this.emit('data', data);
+                    this.logger &&
+                        this.logger.info(`received from ${remoteAddress} following data: ${JSON.stringify(data)}`);
+                    this.logger &&
+                        this.logger.info(`received from ${remoteAddress} following message: ${data.toString().trim()}`);
+                    const cid = this.parseCID(data);
+                    this.logger && this.logger.debug(`Paresed message: ${JSON.stringify(cid)}`);
+                    this.logger && this.logger.debug(`Paresed message: ${JSON.stringify(cid)}`);
                     const ack = this.ackCID(cid);
+                    this.emit('cid', cid, undefined);
+                    this.logger &&
+                        this.logger.info(`sending to ${remoteAddress} following ACK message: ${ack.toString().trim()}`);
                     sock.end(ack);
-                } else {
-                    this.adapter.log.info('Received message could not be parsed!');
+                } catch (err) {
+                    this.logger && this.logger.info('Received message could not be parsed!');
+                    this.emit('sia', undefined, tools.getErrorMessage(err));
                     sock.end();
                 }
             });
             sock.on('close', () => {
-                this.adapter.log.info(`connection from ${remoteAddress} closed`);
+                this.logger && this.logger.info(`connection from ${remoteAddress} closed`);
             });
             sock.on('error', err => {
-                this.adapter.setState('info.connection', { val: false, ack: true });
-                this.adapter.log.error(`Connection ${remoteAddress}, Error: ${err.message}`);
+                this.logger && this.logger.error(`Connection ${remoteAddress} error:  ${tools.getErrorMessage(err)}`);
+                this.emit('error', tools.getErrorMessage(err));
             });
         });
 
-        this.server.listen(this.adapter.config.port, this.adapter.config.bind, () => {
-            const text = `Contact ID Server listening on IP-Adress: ${this.server.address().address}:${this.server.address().port}`;
-            this.adapter.setState('info.connection', { val: true, ack: true });
-            this.adapter.log.info(text);
+        servertcp.listen(this.port, this.host, () => {
+            this.logger && this.logger.info(`ContactID Server listening on IP-Adress (TCP): ${this.host}:${this.port}`);
         });
     }
 

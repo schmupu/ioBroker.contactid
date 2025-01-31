@@ -1,5 +1,20 @@
 {
-    "contactid adapter settings": "Налаштування адаптера для contactid",
-    "option1": "варіант1",
-    "option2": "варіант2"
+    "on save adapter restarts with new config immediately": "Після збереження адаптерів з перезапуском з новою конфігурацією негайно",
+    "Main settings": "Основні налаштування",
+    "Subscribers": "Передплатники",
+    "Bind IP-Address": "Зв’язувати IP-адресу",
+    "Port": "Порт",
+    "IP-Address": "IP-адреса",
+    "Subscriber": "Абонент",
+    "alarmsystem": "Система тривоги",
+    "Path for saving SIA messages": "Шлях для збереження контактних повідомлень",
+    "Save incomming SIA messages": "Зберегти інкументні контактні повідомлення",
+    "Main Settings": "Основні налаштування",
+    "Listen IP": "Слухайте IP",
+    "Listen Port": "Послухайте порт",
+    "Path for saving ContactID messages": "Шлях для збереження контактних повідомлень",
+    "Save incomming ContactID messages": "Зберегти інкументні контактні повідомлення",
+    "List of Subscribers": "Список абонентів",
+    "Type of Alarmsystem": "Тип тривоги",
+    "Listen IP-Address": "Слухайте IP-адресу"
 }

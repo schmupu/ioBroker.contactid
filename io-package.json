@@ -56,8 +56,15 @@
             "uk": "Протокол Contact ID, який використовується системами сигналізації для зв’язку з центральними станціями",
             "zh-cn": "报警系统用于与中心站通信的 Contact ID 协议"
         },
-        "authors": ["Thorsten Stueben <thorsten@stueben.de>"],
-        "keywords": ["contactid", "lupusec", "alarm", "burglar"],
+        "authors": [
+            "Thorsten Stueben <thorsten@stueben.de>"
+        ],
+        "keywords": [
+            "contactid",
+            "lupusec",
+            "alarm",
+            "burglar"
+        ],
         "licenseInformation": {
             "type": "free",
             "license": "MIT"
@@ -91,6 +98,8 @@
     "native": {
         "port": 50000,
         "bind": "0.0.0.0",
+        "path": "/tmp/cid/",
+        "save": false,
         "keys": [
             {
                 "subscriber": "test",

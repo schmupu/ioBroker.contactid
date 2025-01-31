@@ -1,5 +1,20 @@
 {
-    "contactid adapter settings": "Adapterinstellingen voor contactid",
-    "option1": "optie1",
-    "option2": "optie2"
+    "on save adapter restarts with new config immediately": "op opslaan adapter start met nieuwe configures onmiddellijk opnieuw op",
+    "Main settings": "Hoofdinstellingen",
+    "Subscribers": "Abonnees",
+    "Bind IP-Address": "Bind ip-address",
+    "Port": "Haven",
+    "IP-Address": "Ip-adres",
+    "Subscriber": "Abonnee",
+    "alarmsystem": "alarmsysteem",
+    "Path for saving SIA messages": "Pad voor het opslaan van ContactID -berichten",
+    "Save incomming SIA messages": "Bewaar Incomming ContactID -berichten",
+    "Main Settings": "Hoofdinstellingen",
+    "Listen IP": "Luister IP",
+    "Listen Port": "Luisterpoort",
+    "Path for saving ContactID messages": "Pad voor het opslaan van ContactID -berichten",
+    "Save incomming ContactID messages": "Bewaar Incomming ContactID -berichten",
+    "List of Subscribers": "Lijst met abonnees",
+    "Type of Alarmsystem": "Type alarmsysteem",
+    "Listen IP-Address": "Luister ip-adres"
 }

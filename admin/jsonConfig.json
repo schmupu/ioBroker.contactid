@@ -15,7 +15,7 @@
                     "lg": 4,
                     "xl": 4,
                     "xs": 12,
-                    "label": "Listen IP"
+                    "label": "Listen IP-Address"
                 },
                 "port": {
                     "type": "number",
@@ -27,6 +27,28 @@
                     "xl": 4,
                     "xs": 12,
                     "label": "Listen Port"
+                },
+                "path": {
+                    "newLine": true,
+                    "type": "text",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4,
+                    "xl": 4,
+                    "xs": 12,
+                    "help": "Path for saving ContactID messages",
+                    "validator": "!data.save || data.path",
+                    "validatorNoSaveOnError": true
+                },
+                "save": {
+                    "type": "checkbox",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 4,
+                    "xl": 4,
+                    "xs": 12,
+                    "label": "Save incomming ContactID messages",
+                    "tooltip": "Save incomming ContactID messages"
                 }
             }
         },
@@ -38,7 +60,7 @@
                     "newLine": true,
                     "type": "table",
                     "sm": 12,
-                    "md": 6,
+                    "md": 11,
                     "lg": 10,
                     "xl": 10,
                     "xs": 12,

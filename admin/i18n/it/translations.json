@@ -1,5 +1,20 @@
 {
-    "contactid adapter settings": "Impostazioni dell'adattatore per contactid",
-    "option1": "opzione1",
-    "option2": "opzione2"
+    "on save adapter restarts with new config immediately": "su salvataggio dell'adattatore si riavvia immediatamente con una nuova configurazione",
+    "Main settings": "Impostazioni principali",
+    "Subscribers": "Abbonati",
+    "Bind IP-Address": "Lega l'indirizzo IP",
+    "Port": "Porta",
+    "IP-Address": "Indirizzo IP",
+    "Subscriber": "Abbonato",
+    "alarmsystem": "sistema di allarme",
+    "Path for saving SIA messages": "Percorso per salvare i messaggi contactid",
+    "Save incomming SIA messages": "Salva i messaggi contactId intrecciati",
+    "Main Settings": "Impostazioni principali",
+    "Listen IP": "Ascolta ip",
+    "Listen Port": "Ascolta la porta",
+    "Path for saving ContactID messages": "Percorso per salvare i messaggi contactid",
+    "Save incomming ContactID messages": "Salva i messaggi contactId intrecciati",
+    "List of Subscribers": "Elenco degli abbonati",
+    "Type of Alarmsystem": "Tipo di allarme",
+    "Listen IP-Address": "Ascolta ipo-indirizzo"
 }

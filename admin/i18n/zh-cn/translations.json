@@ -1,5 +1,20 @@
 {
-    "contactid adapter settings": "contactid的适配器设置",
-    "option1": "选项1",
-    "option2": "选项2"
+    "on save adapter restarts with new config immediately": "在保存适配器上，请立即使用新的配置重新启动",
+    "Main settings": "主要设置",
+    "Subscribers": "订户",
+    "Bind IP-Address": "绑定IP地址",
+    "Port": "港口",
+    "IP-Address": "IP地址",
+    "Subscriber": "订户",
+    "alarmsystem": "警报系统",
+    "Path for saving SIA messages": "保存ContactID消息的路径",
+    "Save incomming SIA messages": "保存不断的联系消息",
+    "Main Settings": "主要设置",
+    "Listen IP": "听IP",
+    "Listen Port": "听端口",
+    "Path for saving ContactID messages": "保存ContactID消息的路径",
+    "Save incomming ContactID messages": "保存不断的联系消息",
+    "List of Subscribers": "订户列表",
+    "Type of Alarmsystem": "警报系统的类型",
+    "Listen IP-Address": "听IP地址"
 }
