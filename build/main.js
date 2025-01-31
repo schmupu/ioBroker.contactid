@@ -96,7 +96,7 @@ class contactid extends utils.Adapter {
         }
       }
     });
-    this.cidclient.on("data", async (err) => {
+    this.cidclient.on("error", async (err) => {
       this.log.error(`Error ${err}`);
       await this.setState("info.connection", { val: false, ack: true });
     });
