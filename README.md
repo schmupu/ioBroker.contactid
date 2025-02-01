@@ -73,6 +73,23 @@ Example: [test 18160201010B]
 
 Now you can see the message in the ioBroker objects
 
+5. Problems / Issues
+
+If you have problems processing ContactID messages, please create an issue.
+In the issue I need the following information:
+
+1. Manufacturer and type of alarm system
+2. The ContactID message as a file. You can create a file if you activate it in the instance configuration.
+3. The debug output from ioBroker when processing the message
+4. Detailed description of the bug
+
+You can test saved ContactID message with following command
+
+```
+# cat fileanme_of_cid_message | nc ip_address_of_iobroker cid_port
+cat /tmp/cid/cid_msg_fa165cc0-8e3a-faa1-eb5c-fd3e47479044.txt | nc localhost 55000
+```
+
 ## Changelog
 
 ### **WORK IN PROGRESS**

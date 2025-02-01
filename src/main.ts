@@ -33,7 +33,6 @@ class contactid extends utils.Adapter {
      */
     private async onReady(): Promise<void> {
         this.log.info(`Starting Adapter ${this.namespace} in version ${this.version}`);
-        // await tools.wait(10);
         await this.setState('info.connection', { val: true, ack: true });
         this.subscribeStates('*');
         await this.deleteObjects();
@@ -67,22 +66,26 @@ class contactid extends utils.Adapter {
             if (data) {
                 this.log.debug(`Data: ${JSON.stringify(data)}`);
                 if (this.config.save) {
-                    const filename = `${tools.addSlashToPath(this.config.path)}cid_msg_${Date.now()}.txt`;
                     try {
                         if (!fs.existsSync(this.config.path)) {
                             this.log.info(`Creating path ${this.config.path}`);
                             fs.mkdirSync(this.config.path, { recursive: true });
                         }
-                        fs.writeFileSync(filename, data, 'binary');
-                        if (fs.existsSync(filename)) {
-                            this.log.info(`Save ContactID message to ${filename}`);
-                        } else {
-                            this.log.error(`Could not write ContactID message to file ${filename}.`);
+                        for (let i = 0; i <= 1000; i++) {
+                            // const filename = `${tools.addSlashToPath(this.config.path)}cid_msg_${Date.now()}.txt`;
+                            const filename = `${tools.addSlashToPath(this.config.path)}cid_msg_${tools.getTimeStrFromUnixTime()}.txt`;
+                            if (!fs.existsSync(filename)) {
+                                fs.writeFileSync(filename, data, 'binary');
+                                if (fs.existsSync(filename)) {
+                                    this.log.info(`Save ContactID message to ${filename}`);
+                                } else {
+                                    this.log.error(`Could not write ContactID message to file ${filename}.`);
+                                }
+                                break;
+                            }
                         }
                     } catch (err) {
-                        this.log.error(
-                            `Could not write ContactID message to file ${filename}. ${tools.getErrorMessage(err)}`,
-                        );
+                        this.log.error(`Could not write ContactID message to file . ${tools.getErrorMessage(err)}`);
                     }
                 }
             }
