@@ -31,6 +31,7 @@ export class ContactID extends EventEmitter {
     private port: number;
     private host: string;
     private logger: any;
+    private servertcp: net.Server;
 
     /**
      * Contructor
@@ -52,6 +53,7 @@ export class ContactID extends EventEmitter {
                 error: parameter.logger.error ? parameter.logger.error : parameter.logger,
             };
         }
+        this.servertcp = net.createServer();
     }
 
     /**
@@ -96,7 +98,7 @@ export class ContactID extends EventEmitter {
      *
      * @param cid cid
      */
-    private ackCID(cid: ifCID): any {
+    public ackCID(cid: ifCID): any {
         let ack = undefined;
         switch (this.getAlarmSystem(cid.subscriber)) {
             case 'lupusec_xt1':
@@ -133,7 +135,7 @@ export class ContactID extends EventEmitter {
      *
      * @param data contactid message from alarm system
      */
-    private parseCID(data: any): ifCID {
+    public parseCID(data: any): ifCID {
         if (!data) {
             throw new Error(`Could not parse ContactID message, because it is empty`);
         }
@@ -162,7 +164,8 @@ export class ContactID extends EventEmitter {
      * start socket server for listining for contact IDs
      */
     public serverStartTCP(): void {
-        const servertcp = net.createServer(sock => {
+        // this.servertcp = net.createServer();
+        this.servertcp.on('connection', sock => {
             const remoteAddress = `${sock.remoteAddress}:${sock.remotePort}`;
             this.logger && this.logger.debug(`New client connected: ${remoteAddress}`);
             sock.on('data', data => {
@@ -194,10 +197,29 @@ export class ContactID extends EventEmitter {
                 this.emit('error', tools.getErrorMessage(err));
             });
         });
-
-        servertcp.listen(this.port, this.host, () => {
-            this.logger && this.logger.info(`ContactID Server listening on IP-Adress (TCP): ${this.host}:${this.port}`);
+        this.servertcp.on('close', () => {
+            this.logger && this.logger.info(`TCP Listen server on ${this.host}:${this.port} closed`);
+            this.emit('close');
         });
+        this.servertcp.listen(this.port, this.host, () => {
+            this.logger &&
+                this.logger.info(`ContactID Server listening on IP-Address (TCP): ${this.host}:${this.port}`);
+        });
+    }
+
+    /**
+     * Stop TCP Server
+     */
+    public serverStopTCP(): void {
+        if (this.servertcp) {
+            this.servertcp.close(err => {
+                if (err) {
+                    throw new Error(`Could not close TCP Listen server on : ${this.host}:${this.port}`);
+                } else {
+                    this.logger.info(`Close TCP Listen server on: ${this.host}:${this.port}`);
+                }
+            });
+        }
     }
 
     /**

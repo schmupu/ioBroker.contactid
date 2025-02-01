@@ -40,6 +40,7 @@ class ContactID extends import_events.EventEmitter {
   port;
   host;
   logger;
+  servertcp;
   /**
    * Contructor
    *
@@ -60,6 +61,7 @@ class ContactID extends import_events.EventEmitter {
         error: parameter.logger.error ? parameter.logger.error : parameter.logger
       };
     }
+    this.servertcp = net.createServer();
   }
   /**
    * Set Subscribers
@@ -161,7 +163,7 @@ class ContactID extends import_events.EventEmitter {
    * start socket server for listining for contact IDs
    */
   serverStartTCP() {
-    const servertcp = net.createServer((sock) => {
+    this.servertcp.on("connection", (sock) => {
       const remoteAddress = `${sock.remoteAddress}:${sock.remotePort}`;
       this.logger && this.logger.debug(`New client connected: ${remoteAddress}`);
       sock.on("data", (data) => {
@@ -190,9 +192,27 @@ class ContactID extends import_events.EventEmitter {
         this.emit("error", tools.getErrorMessage(err));
       });
     });
-    servertcp.listen(this.port, this.host, () => {
-      this.logger && this.logger.info(`ContactID Server listening on IP-Adress (TCP): ${this.host}:${this.port}`);
+    this.servertcp.on("close", () => {
+      this.logger && this.logger.info(`TCP Listen server on ${this.host}:${this.port} closed`);
+      this.emit("close");
     });
+    this.servertcp.listen(this.port, this.host, () => {
+      this.logger && this.logger.info(`ContactID Server listening on IP-Address (TCP): ${this.host}:${this.port}`);
+    });
+  }
+  /**
+   * Stop TCP Server
+   */
+  serverStopTCP() {
+    if (this.servertcp) {
+      this.servertcp.close((err) => {
+        if (err) {
+          throw new Error(`Could not close TCP Listen server on : ${this.host}:${this.port}`);
+        } else {
+          this.logger.info(`Close TCP Listen server on: ${this.host}:${this.port}`);
+        }
+      });
+    }
   }
   /**
    * Wait (sleep) x seconds
