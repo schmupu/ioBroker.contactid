@@ -123,7 +123,7 @@ cat /tmp/cid/cid_msg_fa165cc0-8e3a-faa1-eb5c-fd3e47479044.txt | nc localhost 550
 
 MIT License
 
-Copyright (c) 2025 Thorsten Stueben <thorsten@stueben.de>
+Copyright (c) 2025-2026 Thorsten Stueben <thorsten@stueben.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
