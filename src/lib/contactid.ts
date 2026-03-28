@@ -1,5 +1,5 @@
-import { EventEmitter } from 'events';
-import * as net from 'net';
+import { EventEmitter } from 'node:events';
+import * as net from 'node:net';
 import * as dp from './datapoints';
 import * as tools from './tools';
 

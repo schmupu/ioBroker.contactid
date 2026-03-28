@@ -5,13 +5,13 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 import * as utils from '@iobroker/adapter-core';
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 import * as cidmanager from './lib/contactid';
 import * as dp from './lib/datapoints';
 import * as tools from './lib/tools';
 
 // Load your modules here, e.g.:
-// import * as fs from "fs";
+// import * as fs from "node:fs";
 
 class contactid extends utils.Adapter {
     private cidclient: any;
