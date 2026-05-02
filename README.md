@@ -93,6 +93,7 @@ cat /tmp/cid/cid_msg_fa165cc0-8e3a-faa1-eb5c-fd3e47479044.txt | nc localhost 550
 ## Changelog
 
 ### **WORK IN PROGRESS**
+- (copilot) Adapter requires node.js >= 22 now
 
 - (Stübi) Fixing @iobroker/adapter-dev 1.0.1 specified. 1.3.0 is required as minimum, 1.3.0 is recommended (Issue #51)
 - (Stübi) Fixing dependency, (Issue #52)
