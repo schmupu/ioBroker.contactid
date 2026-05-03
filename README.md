@@ -119,6 +119,8 @@ cat /tmp/cid/cid_msg_fa165cc0-8e3a-faa1-eb5c-fd3e47479044.txt | nc localhost 550
 - (Stübi) Bugfixing, ACK-invalid Format - Issue #14
 - (Stübi) Bugfixing, Issue #9
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 
 MIT License
